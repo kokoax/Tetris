@@ -1,8 +1,11 @@
+#pragma once
+
 #include <iostream>
 #include <iomanip>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include <vector>
 
 #include <time.h>

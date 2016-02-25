@@ -4,7 +4,8 @@
 #include "tetrisRun.h"
 
 int main( void ){
-  //tetrisRun asd;
+  srand( (unsigned int)time(NULL) );
+  tetrisRun asd;
 
 	return 0;
 }
