@@ -1,5 +1,5 @@
 OBJ = tetrisMain.o tetrisMap.o tetrisPattern.o tetrisRun.o archive.o
-FLAG = -c -O2 -Wall -W
+FLAG = -c -O2 -Wall -W -std=c++11
 
 default : $(OBJ)
 	g++ $(OBJ) -o Tetris -lm
