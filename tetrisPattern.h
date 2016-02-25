@@ -11,7 +11,6 @@ class tetrisPattern {
   private:
     vector< vector< char > >nextPattern;
     vector< vector< char > >nowPattern;
-    LOCATE locate;
     int state;
 
     // 落ちてくるブロックのパターンの数
@@ -25,6 +24,8 @@ class tetrisPattern {
     void initTakePattern( void );
 
   public:
+    int x, y;
+
     tetrisPattern( void );
 
     void moveDown( void );
@@ -39,6 +40,5 @@ class tetrisPattern {
     void test( void );
 
     int getState( void );
-    LOCATE getLocate( void );
 };
 
