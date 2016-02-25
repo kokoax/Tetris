@@ -7,32 +7,79 @@
  *           T字  2 x 3
  *           縦棒 3 x 1
  */
-void tetrisPattern::initPattern( void ){
-  // 四角のパターン
-  char *rectPattern[2] = {
-    "##",
-    "##"
-  };
+void tetrisPattern::vstrcpy( int i, int j, const char *from ){
+  int k;
+  for( k = 0; from[k] != '\0'; k++ ){
+    Tpatterns[i][j][k] = from[k];
+  }
+  Tpatterns[i][j][k] = '\0';
+}
 
-  // T字のパターン
-  char TPattern[2][4] = {
-    "###",
-    " # "
-  };
+void tetrisPattern::clearStr( int i, int j, int length ){
+  for( int k = 0; k < length; k++ ){
+    Tpatterns[i][j][k] = '\0';
+  }
+}
+
+void tetrisPattern::initPattern( void ){
+  Tpatterns.resize( 10 );   // ブロックのパターンの数
+
+  // 四角のパターン
+  Tpatterns[0].resize( 3 );
+  for( int i = 0; i < 3; i++ ){
+    Tpatterns[0][i].resize( 3 );
+  }
+
+  vstrcpy( 0, 0, "##" );
+  vstrcpy( 0, 1, "##" );
+  clearStr( 0, 2, (int)Tpatterns[0][0].size() );
+
+ // T字のパターン
+  Tpatterns[1].resize( 3 );
+  for( int i = 0; i < 3; i++ ){
+    Tpatterns[1][i].resize( 4 );
+  }
+
+  vstrcpy( 1, 0, "###" );
+  vstrcpy( 1, 1, " # " );
+  clearStr( 1, 2, (int)Tpatterns[1][0].size() );
 
   // 縦棒のパターン
-  char StickPattern[4][2] = {
-    "#",
-    "#",
-    "#",
-    "#"
-  };
+  Tpatterns[2].resize( 5 );
+  for( int i = 0; i < 5; i++ ){
+    Tpatterns[2][i].resize( 2 );
+  }
+
+  vstrcpy( 2, 0, "#" );
+  vstrcpy( 2, 1, "#" );
+  vstrcpy( 2, 2, "#" );
+  vstrcpy( 2, 3, "#" );
+  clearStr( 2, 4, (int)Tpatterns[2][0].size() );
 
   //etc...
+
+  //最後は番兵
+  Tpatterns[3].resize( 1 );
+  Tpatterns[3][0].resize( 1 );
+
+  Tpatterns[3][0][0] = '\0';
+
+}
+
+void tetrisPattern::initTakePattern( void ){
+  nextPattern.resize( 5 );
+  nowPattern.resize( 5 );
+  for( int i = 0; i < 5; i++ ){
+    nextPattern[i].resize( 5 );
+    nowPattern[i].resize( 5 );
+  }
+  setPattern( &nextPattern );
+  setPattern( &nowPattern );
 }
 
 tetrisPattern::tetrisPattern( void ){
-
+  initPattern();
+  initTakePattern();
 }
 
 void tetrisPattern::moveDown( void ){
@@ -48,6 +95,48 @@ void tetrisPattern::moveLeft( void ){
 }
 
 // 次に落下するパターンをセットする
-void tetrisPattern::setPattern( void ){
-
+void tetrisPattern::setPattern( vector< vector< char > > *pattern ){
+  int select = rand() % 3;
+  for( int i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
+    for( int j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
+      (*pattern)[i][j] = Tpatterns[select][i][j];
+    }
+    if( Tpatterns[select][i+1][0] == '\0' ){
+      for( int j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
+        (*pattern)[i+1][j] = Tpatterns[select][i+1][j];
+      }
+    }
+  }
 }
+
+void tetrisPattern::test( void ){
+  printf( "Created patterns print\n" );
+  for( int i = 0; Tpatterns[i][0][0] != '\0'; i++ ){
+    printf( "\nPattern Number %d\n", i );
+    for( int j = 0; Tpatterns[i][j][0] != '\0'; j++ ){
+      for( int k = 0; Tpatterns[i][j][k] != '\0'; k++ ){
+        printf( "%c", Tpatterns[i][j][k] );
+      }
+      printf( "\n" );
+    }
+    printf( "\n" );
+  }
+
+  printf( "nowPattern print\n" );
+  for( int i = 0; nowPattern[i][0] != '\0'; i++ ){
+    for( int j = 0; nowPattern[i][j] != '\0'; j++ ){
+      printf( "%c", nowPattern[i][j] );
+    }
+    printf( "\n" );
+  }
+  printf( "\n" );
+
+  printf( "nextPattern print\n" );
+  for( int i = 0; nextPattern[i][0] != '\0'; i++ ){
+    for( int j = 0; nextPattern[i][j] != '\0'; j++ ){
+      printf( "%c", nextPattern[i][j] );
+    }
+    printf( "\n" );
+  }
+}
+

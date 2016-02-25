@@ -1,4 +1,4 @@
-OBJ = tetrisMain.o tetrisMap.o tetrisPattern.o tetrisRun.o
+OBJ = tetrisMain.o tetrisMap.o tetrisPattern.o tetrisRun.o archive.o
 FLAG = -c -O2 -Wall -W
 
 default : $(OBJ)
@@ -18,6 +18,8 @@ tetrisPattern.o : tetrisPattern.cpp tetrisPattern.h tetris.h
 tetrisRun.o : tetrisRun.cpp tetrisRun.h tetris.h
 	g++ $(FLAG) tetrisRun.cpp
 
+archive.o : archive.cpp archive.h tetris.h
+	g++ $(FLAG) archive.cpp
 
 
 run : $(OBJ)
