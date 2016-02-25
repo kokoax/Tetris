@@ -8,21 +8,27 @@
  *           縦棒 3 x 1
  */
 void tetrisPattern::initPattern( void ){
-  pattern[0] = { "000",
-                 "0##",
-                 "0##",
-  };
-  strcpy( 
-  pattern[1] = { "000",
-                 "0##",
-                 "0##",
+  // 四角のパターン
+  char *rectPattern[2] = {
+    "##",
+    "##"
   };
 
-  pattern[2] = { "000",
-                 "0##",
-                 "0##",
+  // T字のパターン
+  char TPattern[2][4] = {
+    "###",
+    " # "
   };
 
+  // 縦棒のパターン
+  char StickPattern[4][2] = {
+    "#",
+    "#",
+    "#",
+    "#"
+  };
+
+  //etc...
 }
 
 tetrisPattern::tetrisPattern( void ){
@@ -41,6 +47,7 @@ void tetrisPattern::moveLeft( void ){
 
 }
 
+// 次に落下するパターンをセットする
 void tetrisPattern::setPattern( void ){
 
 }
