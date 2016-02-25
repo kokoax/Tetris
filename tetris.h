@@ -13,3 +13,7 @@
 
 using namespace std;
 
+typedef struct Locate {
+  int x, y;
+} LOCATE;
+
