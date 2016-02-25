@@ -12,6 +12,7 @@ class tetrisPattern {
     vector< vector< char > >nextPattern;
     vector< vector< char > >nowPattern;
     int x, y;
+    int state;
 
     // 落ちてくるブロックのパターンの数
     // ブロックの最大縦幅
@@ -36,5 +37,7 @@ class tetrisPattern {
     void setPattern( vector< vector< char > > *pattern );
 
     void test( void );
+
+    int getState( void );
 };
 
