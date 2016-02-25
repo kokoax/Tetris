@@ -13,9 +13,9 @@ tetrisMain.o : tetrisMain.cpp
 
 run : $(OBJ)
 	g++ $(OBJ) -o Tetris -lm
-	./Tetris.exe
+	./Tetris
 
 clean :
 	rm *.o
-	rm *.exe
+	rm Tetris
 
