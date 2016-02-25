@@ -8,6 +8,8 @@
 #include <string.h>
 #include <vector>
 
+#include <future>
+
 #include <time.h>
 #include <unistd.h>
 
