@@ -8,19 +8,20 @@ tetrisRun::tetrisRun( void ){
   tetrisPattern Pattern;
   tetrisMap     Map;
   //auto result = async( launch::async, [] { return long_calc(); } );
-  //while( 1 ){
-    /*
-    // 並列処理 checkKey( );
-    if( checkKey() == 0xkk ){
-      Pattern.moveDown();
+  while( 1 ){
+    int data = getch();
+    if( data == 0x48 ){
+      //上キー
+      //Map.moveUp( Pattern.nowPattern );
+      //
+    } else if( data == 0x50 ){
+
+      //下キー
+    } else if( data == 0x4B ){
+      //左キー
+    } else if( data == 0x4D ){
+      //右キー
     }
-    if( checkKey() == 0xkk ){
-      Pattern.moveRight();
-    }
-    if( checkKey() == 0xkk ){
-      Pattern.moveLeft();
-    }
-    */
-  //}
+  }
 }
 

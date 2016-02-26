@@ -13,5 +13,7 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <conin.h>
+
 using namespace std;
 
