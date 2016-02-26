@@ -7,20 +7,24 @@
 tetrisRun::tetrisRun( void ){
   tetrisPattern Pattern;
   tetrisMap     Map;
-  //auto result = async( launch::async, [] { return long_calc(); } );
   while( 1 ){
-    int data = getch();
-    if( data == 0x48 ){
+    Map.movePattern( &Pattern.nowPattern );
+    int data = mygetch();
+    if( data == 0x48 || data == 'w'){
       //上キー
       //Map.moveUp( Pattern.nowPattern );
       //
-    } else if( data == 0x50 ){
-
+    } else if( data == 0x50 || data == 's' ){
       //下キー
-    } else if( data == 0x4B ){
+      Pattern.nowPattern.state = 1;
+    } else if( data == 0x4B || data == 'a' ){
       //左キー
-    } else if( data == 0x4D ){
+      Pattern.nowPattern.state = 2;
+    } else if( data == 0x4D || data == 'd' ){
       //右キー
+      Pattern.nowPattern.state = 3;
+    } else if( data == 'e' || data == 'q' ){
+      break;
     }
   }
 }
