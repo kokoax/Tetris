@@ -9,10 +9,6 @@
  */
 class tetrisPattern {
   private:
-    vector< vector< char > >nextPattern;
-    vector< vector< char > >nowPattern;
-    int state;
-
     // 落ちてくるブロックのパターンの数
     // ブロックの最大縦幅
     // ブロックの最大横幅
@@ -25,6 +21,9 @@ class tetrisPattern {
 
   public:
     int x, y;
+    PATTERN_RETENTION nowPattern;
+    PATTERN_RETENTION nextPattern;
+    int state;
 
     tetrisPattern( void );
 
@@ -35,10 +34,8 @@ class tetrisPattern {
     void turnRight( void );
     void turnLeft( void );
 
-    void setPattern( vector< vector< char > > *pattern );
+    void setPattern( PATTERN_RETENTION *pattern );
 
     void test( void );
-
-    int getState( void );
 };
 

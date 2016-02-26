@@ -67,11 +67,11 @@ void tetrisPattern::initPattern( void ){
 }
 
 void tetrisPattern::initTakePattern( void ){
-  nextPattern.resize( 5 );
-  nowPattern.resize( 5 );
+  nextPattern.pattern.resize( 5 );
+  nowPattern.pattern.resize( 5 );
   for( int i = 0; i < 5; i++ ){
-    nextPattern[i].resize( 5 );
-    nowPattern[i].resize( 5 );
+    nextPattern.pattern[i].resize( 5 );
+    nowPattern.pattern[i].resize( 5 );
   }
   setPattern( &nextPattern );
   setPattern( &nowPattern );
@@ -95,16 +95,16 @@ void tetrisPattern::moveLeft( void ){
 }
 
 // 次に落下するパターンをセットする
-void tetrisPattern::setPattern( vector< vector< char > > *pattern ){
+void tetrisPattern::setPattern( PATTERN_RETENTION *pattern ){
   int select = rand() % 3;
   state = 0;  // パターンをセットしなおす時はパターンが下まで落ちきったときなので状態は表示されていないところまで戻る
   for( int i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
     for( int j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
-      (*pattern)[i][j] = Tpatterns[select][i][j];
+      pattern->pattern[i][j] = Tpatterns[select][i][j];
     }
     if( Tpatterns[select][i+1][0] == '\0' ){
       for( int j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
-        (*pattern)[i+1][j] = Tpatterns[select][i+1][j];
+        pattern->pattern[i+1][j] = Tpatterns[select][i+1][j];
       }
     }
   }
@@ -124,24 +124,20 @@ void tetrisPattern::test( void ){
   }
 
   printf( "nowPattern print\n" );
-  for( int i = 0; nowPattern[i][0] != '\0'; i++ ){
-    for( int j = 0; nowPattern[i][j] != '\0'; j++ ){
-      printf( "%c", nowPattern[i][j] );
+  for( int i = 0; nowPattern.pattern[i][0] != '\0'; i++ ){
+    for( int j = 0; nowPattern.pattern[i][j] != '\0'; j++ ){
+      printf( "%c", nowPattern.pattern[i][j] );
     }
     printf( "\n" );
   }
   printf( "\n" );
 
   printf( "nextPattern print\n" );
-  for( int i = 0; nextPattern[i][0] != '\0'; i++ ){
-    for( int j = 0; nextPattern[i][j] != '\0'; j++ ){
-      printf( "%c", nextPattern[i][j] );
+  for( int i = 0; nextPattern.pattern[i][0] != '\0'; i++ ){
+    for( int j = 0; nextPattern.pattern[i][j] != '\0'; j++ ){
+      printf( "%c", nextPattern.pattern[i][j] );
     }
     printf( "\n" );
   }
-}
-
-int tetrisPattern::getState( void ){
-  return state;
 }
 
