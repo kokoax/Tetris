@@ -101,6 +101,10 @@ void tetrisPattern::setPattern( PATTERN_RETENTION *pattern ){
   pattern->state = 0;  // パターンをセットしなおす時はパターンが下まで落ちきったときなので状態は表示されていないところまで戻る
   pattern->x = 0;
   pattern->y = 0;
+  pattern->pattern.resize( (int)Tpatterns[select].size() );
+  for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
+    pattern->pattern[i].resize( (int)Tpatterns[select][i].size() );
+  }
   for( i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
     for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
