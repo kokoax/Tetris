@@ -68,7 +68,7 @@ void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ' ';
       printf( "\e[%d;%dH", i+1, j+1 );
-      printf( "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+      printf( " " );
     }
   }
 }
