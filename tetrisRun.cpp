@@ -8,7 +8,7 @@ tetrisRun::tetrisRun( void ){
   tetrisPattern Pattern;
   tetrisMap     Map;
   //auto result = async( launch::async, [] { return long_calc(); } );
-  while( 1 ){
+  //while( 1 ){
     /*
     // 並列処理 checkKey( );
     if( checkKey() == 0xkk ){
@@ -21,6 +21,6 @@ tetrisRun::tetrisRun( void ){
       Pattern.moveLeft();
     }
     */
-  }
+  //}
 }
 
