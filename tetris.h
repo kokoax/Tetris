@@ -13,6 +13,8 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <conin.h>
+
 using namespace std;
 
 typedef struct pattern_retention {

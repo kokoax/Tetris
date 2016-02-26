@@ -27,7 +27,7 @@ void tetrisMap::printMap( void ){
 
 tetrisMap::tetrisMap( void ){
   initMap();
-  test();
+  //test();
   printMap();
 }
 
