@@ -16,13 +16,13 @@ tetrisRun::tetrisRun( void ){
       //
     } else if( data == 0x50 || data == 's' ){
       //下キー
-      Pattern.nowPattern.state = 1;
+      Pattern.nowPattern.state = 3;
     } else if( data == 0x4B || data == 'a' ){
       //左キー
-      Pattern.nowPattern.state = 2;
+      Pattern.nowPattern.state = 1;
     } else if( data == 0x4D || data == 'd' ){
       //右キー
-      Pattern.nowPattern.state = 3;
+      Pattern.nowPattern.state = 2;
     } else if( data == 'e' || data == 'q' ){
       break;
     }
