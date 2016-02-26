@@ -13,7 +13,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include <conin.h>
+#include <termios.h>
 
 using namespace std;
 
