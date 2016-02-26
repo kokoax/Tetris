@@ -66,8 +66,9 @@ void tetrisMap::movePattern( PATTERN_RETENTION *nowPattern ){
 void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
-      map[i][j] = ' ';
-      //printf( "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+      //map[i][j] = ' ';
+      printf( "\e[%d;%dH", i+1, j+1 );
+      printf( "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
     }
   }
 }
@@ -75,8 +76,9 @@ void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
 void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
-      map[i][j] = ctl.pattern[i-ctl.y][j-ctl.x];
-      //printf( "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+      //map[i][j] = ctl.pattern[i-ctl.y][j-ctl.x];
+      printf( "\e[%d;%dH", i+1, j+1 );
+      printf( "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
     }
   }
 }
