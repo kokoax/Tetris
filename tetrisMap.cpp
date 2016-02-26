@@ -27,6 +27,7 @@ void tetrisMap::printMap( void ){
 
 tetrisMap::tetrisMap( void ){
   initMap();
+  //test();
   printMap();
 }
 
@@ -100,7 +101,9 @@ void tetrisMap::test( void ){
   tmp.y = 0;
   tmp.state = 0;
 
-  //appearPattern( tmp );
+  appearPattern( tmp );
   //hidePattern( tmp );
+  tmp.state = 2;
+  movePattern( &tmp );
 }
 
