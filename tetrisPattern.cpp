@@ -141,7 +141,3 @@ void tetrisPattern::test( void ){
   }
 }
 
-int tetrisPattern::getState( void ){
-  return state;
-}
-
