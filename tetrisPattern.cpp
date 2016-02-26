@@ -96,18 +96,21 @@ void tetrisPattern::moveLeft( void ){
 
 // 次に落下するパターンをセットする
 void tetrisPattern::setPattern( PATTERN_RETENTION *pattern ){
+  int i, j;
   int select = rand() % 3;
   pattern->state = 0;  // パターンをセットしなおす時はパターンが下まで落ちきったときなので状態は表示されていないところまで戻る
   pattern->x = 0;
   pattern->y = 0;
-  for( int i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
-    for( int j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
+  for( i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
+    for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
     }
+    pattern->pattern[i][j] = Tpatterns[select][i][j];
     if( Tpatterns[select][i+1][0] == '\0' ){
-      for( int j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
+      for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
         pattern->pattern[i+1][j] = Tpatterns[select][i+1][j];
       }
+      pattern->pattern[i+1][j] = '\0';
     }
   }
 }
