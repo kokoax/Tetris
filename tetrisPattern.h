@@ -23,7 +23,6 @@ class tetrisPattern {
     int x, y;
     PATTERN_RETENTION nowPattern;
     PATTERN_RETENTION nextPattern;
-    int state;
 
     tetrisPattern( void );
 

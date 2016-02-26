@@ -97,7 +97,7 @@ void tetrisPattern::moveLeft( void ){
 // 次に落下するパターンをセットする
 void tetrisPattern::setPattern( PATTERN_RETENTION *pattern ){
   int select = rand() % 3;
-  state = 0;  // パターンをセットしなおす時はパターンが下まで落ちきったときなので状態は表示されていないところまで戻る
+  pattern->state = 0;  // パターンをセットしなおす時はパターンが下まで落ちきったときなので状態は表示されていないところまで戻る
   for( int i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
     for( int j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
