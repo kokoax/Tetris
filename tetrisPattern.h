@@ -21,8 +21,8 @@ class tetrisPattern {
 
   public:
     int x, y;
-    vector< vector< char > >nextPattern;
-    vector< vector< char > >nowPattern;
+    PATTERN_RETENTION nowPattern;
+    PATTERN_RETENTION nextPattern;
     int state;
 
     tetrisPattern( void );
@@ -34,7 +34,7 @@ class tetrisPattern {
     void turnRight( void );
     void turnLeft( void );
 
-    void setPattern( vector< vector< char > > *pattern );
+    void setPattern( PATTERN_RETENTION *pattern );
 
     void test( void );
 };

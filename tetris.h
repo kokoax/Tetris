@@ -15,3 +15,9 @@
 
 using namespace std;
 
+typedef struct pattern_retention {
+  vector< vector< char > > pattern;
+  int x, y;
+} PATTERN_RETENTION;
+
+
