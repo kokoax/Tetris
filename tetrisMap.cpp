@@ -55,6 +55,9 @@ void tetrisMap::movePattern( PATTERN_RETENTION *nowPattern ){
       nowPattern->y++;
       appearPattern( *nowPattern );
       break;
+    case 4:
+      // state == 4 -> パターンが表示されていてかつボタンが何も押されていない状態
+      break;
     default:
       // 存在しない状態
       fprintf( stderr, "Missing nowPattern.getState\n" );
