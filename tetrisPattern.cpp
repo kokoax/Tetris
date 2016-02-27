@@ -12,49 +12,39 @@ void tetrisPattern::vstrcpy( int i, int j, const char *from ){
   for( k = 0; from[k] != '\0'; k++ ){
     Tpatterns[i][j][k] = from[k];
   }
-  Tpatterns[i][j][k] = '\0';
-}
-
-void tetrisPattern::clearStr( int i, int j, int length ){
-  for( int k = 0; k < length; k++ ){
-    Tpatterns[i][j][k] = '\0';
-  }
 }
 
 void tetrisPattern::initPattern( void ){
   Tpatterns.resize( 10 );   // ブロックのパターンの数
 
   // 四角のパターン
-  Tpatterns[0].resize( 3 );
-  for( int i = 0; i < 3; i++ ){
-    Tpatterns[0][i].resize( 3 );
+  Tpatterns[0].resize( 2 );
+  for( int i = 0; i < 2; i++ ){
+    Tpatterns[0][i].resize( 2 );
   }
 
   vstrcpy( 0, 0, "##" );
   vstrcpy( 0, 1, "##" );
-  clearStr( 0, 2, (int)Tpatterns[0][0].size() );
 
  // T字のパターン
-  Tpatterns[1].resize( 3 );
-  for( int i = 0; i < 3; i++ ){
-    Tpatterns[1][i].resize( 4 );
+  Tpatterns[1].resize( 2 );
+  for( int i = 0; i < 2; i++ ){
+    Tpatterns[1][i].resize( 3 );
   }
 
   vstrcpy( 1, 0, "###" );
   vstrcpy( 1, 1, " # " );
-  clearStr( 1, 2, (int)Tpatterns[1][0].size() );
 
   // 縦棒のパターン
-  Tpatterns[2].resize( 5 );
-  for( int i = 0; i < 5; i++ ){
-    Tpatterns[2][i].resize( 2 );
+  Tpatterns[2].resize( 4 );
+  for( int i = 0; i < 4; i++ ){
+    Tpatterns[2][i].resize( 1 );
   }
 
   vstrcpy( 2, 0, "#" );
   vstrcpy( 2, 1, "#" );
   vstrcpy( 2, 2, "#" );
   vstrcpy( 2, 3, "#" );
-  clearStr( 2, 4, (int)Tpatterns[2][0].size() );
 
   //etc...
 
@@ -82,18 +72,6 @@ tetrisPattern::tetrisPattern( void ){
   initTakePattern();
 }
 
-void tetrisPattern::moveDown( void ){
-
-}
-
-void tetrisPattern::moveRight( void ){
-
-}
-
-void tetrisPattern::moveLeft( void ){
-
-}
-
 // 次に落下するパターンをセットする
 // 現在落下しているパターンに次に落下させるパターンを代入する
 // 次に落下するパターンを生成する
@@ -118,16 +96,9 @@ void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
     pattern->pattern[i].resize( (int)Tpatterns[select][i].size() );
   }
 
-  for( i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
-    for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
+  for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
+    for( j = 0; j < (int)Tpatterns[select][i].size(); j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
-    }
-    //pattern->pattern[i][j] = Tpatterns[select][i][j];
-    if( Tpatterns[select][i+1][0] == '\0' ){
-      for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
-        pattern->pattern[i+1][j] = Tpatterns[select][i+1][j];
-      }
-      //pattern->pattern[i+1][j] = '\0';
     }
   }
 }
