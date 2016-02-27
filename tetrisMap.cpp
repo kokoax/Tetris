@@ -11,16 +11,13 @@ void tetrisMap::initMap( void ){
 }
 
 void tetrisMap::printMap( void ){
-  printf( "\e[2J" );    // 画面クリア
+  fprintf( stderr, "\e[2J" );    // 画面クリア
   for( int i = 1; i <= MAP_HIGH; i++ ){
-    //printf( "\033[%d;1H", i );
-    //printf( "%d", i );
     //先頭に行数を表示しているため左に二個ずらしている
     for( int j = 1; j <= MAP_WIDTH; j++ ){
       // 座標( i, j )に次printfで出力する位置を変更する
-      printf( "\033[%d;%dH", i, j );
-      printf( "%c", map[i-1][j-1] );
-      //printf( "c" );
+      fprintf( stderr, "\033[%d;%dH", i, j );
+      fprintf( stderr, "%c", map[i-1][j-1] );
     }
   }
 }
@@ -53,8 +50,10 @@ void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ' ';
-      printf( "\e[%d;%dH", i+1, j+1 );
-      printf( " " );
+      fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
+      fprintf( stderr, " " );
+      //printf( "\e[%d;%dH", i+1, j+1 );
+      //printf( " " );
     }
   }
 }
@@ -63,8 +62,10 @@ void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ctl.pattern[i-ctl.y][j-ctl.x];
-      printf( "\e[%d;%dH", i+1, j+1 );
-      printf( "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+      fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
+      fprintf( stderr, "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+      //printf( "\e[%d;%dH", i+1, j+1 );
+      //printf( "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
     }
   }
 }
