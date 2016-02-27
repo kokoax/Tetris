@@ -76,9 +76,6 @@ tetrisPattern::tetrisPattern( void ){
 // 現在落下しているパターンに次に落下させるパターンを代入する
 // 次に落下するパターンを生成する
 void tetrisPattern::setPattern( void ){
-  int i, j;
-  int select = rand() % 3;
-
   nowPattern = nextPattern;
   selectPattern( &nextPattern );
 }
