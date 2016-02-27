@@ -73,8 +73,8 @@ void tetrisPattern::initTakePattern( void ){
     nextPattern.pattern[i].resize( 5 );
     nowPattern.pattern[i].resize( 5 );
   }
-  setPattern( &nextPattern );
-  setPattern( &nowPattern );
+  selectPattern( &nextPattern );
+  selectPattern( &nowPattern );
 }
 
 tetrisPattern::tetrisPattern( void ){
@@ -95,26 +95,39 @@ void tetrisPattern::moveLeft( void ){
 }
 
 // 次に落下するパターンをセットする
-void tetrisPattern::setPattern( PATTERN_RETENTION *pattern ){
+// 現在落下しているパターンに次に落下させるパターンを代入する
+// 次に落下するパターンを生成する
+void tetrisPattern::setPattern( void ){
   int i, j;
   int select = rand() % 3;
-  pattern->state = 0;  // パターンをセットしなおす時はパターンが下まで落ちきったときなので状態は表示されていないところまで戻る
-  pattern->x = 0;
-  pattern->y = 0;
+
+  nowPattern = nextPattern;
+  selectPattern( &nextPattern );
+}
+
+void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
+  int i, j;
+  int select = rand() % 3;
+
+  pattern->state = 0;  // パターンが画面に表示されていない状態
+  pattern->x = 1;
+  pattern->y = 1;
+
   pattern->pattern.resize( (int)Tpatterns[select].size() );
   for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
     pattern->pattern[i].resize( (int)Tpatterns[select][i].size() );
   }
+
   for( i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
     for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
     }
-    pattern->pattern[i][j] = Tpatterns[select][i][j];
+    //pattern->pattern[i][j] = Tpatterns[select][i][j];
     if( Tpatterns[select][i+1][0] == '\0' ){
       for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
         pattern->pattern[i+1][j] = Tpatterns[select][i+1][j];
       }
-      pattern->pattern[i+1][j] = '\0';
+      //pattern->pattern[i+1][j] = '\0';
     }
   }
 }

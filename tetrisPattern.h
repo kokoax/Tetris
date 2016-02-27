@@ -33,7 +33,8 @@ class tetrisPattern {
     void turnRight( void );
     void turnLeft( void );
 
-    void setPattern( PATTERN_RETENTION *pattern );
+    void setPattern( void );
+    void selectPattern( PATTERN_RETENTION *pattern );
 
     void test( void );
 };
