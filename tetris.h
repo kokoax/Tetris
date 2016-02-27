@@ -15,6 +15,9 @@
 
 #include <termios.h>
 
+#define MAP_HIGH 30
+#define MAP_WIDTH 15
+
 using namespace std;
 
 typedef struct pattern_retention {
