@@ -1,7 +1,6 @@
 //tetrisRun.cpp
 //2016-02-25
 #include "tetrisRun.h"
-#include <chrono>
 
 mutex cpp_mutex;
 
@@ -11,14 +10,17 @@ mutex cpp_mutex;
 void tetrisRun::KeyAction( tetrisPattern &Pattern, tetrisMap &Map ){
   // 並列処理1 KeyAction( &Pattern, &Map )
   while( 1 ){
-    int data = mygetch();
+    int data = mygetch();   //キー入力を待機
 
     cpp_mutex.lock();
 
+    // 入力されたキーごとに処理をする
     if( data == 0x48 || data == 'w'){
       //上キー
-      //Map.moveUp( Pattern.nowPattern );
-      //Pattern.turnPattern();
+      //パターンの回転を行う
+      // ex.
+      // Pattern.turn();
+      // Map.appearPattern( Pattern.nowPattern );
       //
     } else if( data == 0x50 || data == 's' ){
       //下キー
@@ -46,12 +48,11 @@ void tetrisRun::TimeAction( tetrisPattern &Pattern, tetrisMap &Map ){
   while( 1 ) {
     //int data = mygetch();
 
-    //usleep( 1000000 );    // usleepはマイクロ秒sleepなので usleep( 1 ) == 0.0000001秒
-    this_thread::sleep_for( chrono::seconds( 1 ) );
+    //1000000 us = 1 s
+    this_thread::sleep_for( chrono::microseconds( 1000000 ) );
 
     cpp_mutex.lock();
 
-    //Map.appearPattern( Pattern.nowPattern );
     Map.movePatternDown( &Pattern.nowPattern );
 
     //printf( "\e[%d;1H", i+33 );
@@ -69,12 +70,8 @@ tetrisRun::tetrisRun( void ){
   thread keyAction(  &tetrisRun::KeyAction , this, ref( Pattern ), ref( Map ) );
   thread timeAction( &tetrisRun::TimeAction, this, ref( Pattern ), ref( Map ) );
 
-  //thread timeAction = new thread(  []{ printf( "asd\n" );  );
-  //thread timeAction( TimeAction, &Pattern, &Map );
-
-  //keyAction.join();
-  //timeAction.join();
-
+  /* keyActionでプログラムの終了を制御しているためkeyActionが終わったら
+   * timeActionの状態に関わらず終了する */
   keyAction.join();
   //timeAction.join();
 }

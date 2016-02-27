@@ -15,9 +15,9 @@
 
 #include <termios.h>
 
-#include <future>
 #include <thread>
 #include <mutex>
+#include <chrono>
 
 #define MAP_HIGH 30
 #define MAP_WIDTH 15
