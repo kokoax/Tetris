@@ -2,8 +2,6 @@
 
 #include "tetris.h"
 #include "tetrisPattern.h"
-#define MAP_HIGH 30
-#define MAP_WIDTH 15
 
 class tetrisMap {
   private:
@@ -12,11 +10,13 @@ class tetrisMap {
     void initMap( void );
     void printMap( void );
     void hidePattern( const PATTERN_RETENTION ctl );
-    void appearPattern( const PATTERN_RETENTION ctl );
 
   public:
     tetrisMap( void );
-    void movePattern( PATTERN_RETENTION *nowPattern );
+    void movePatternDown( PATTERN_RETENTION *nowPattern );
+    void movePatternRight( PATTERN_RETENTION *nowPattern );
+    void movePatternLeft( PATTERN_RETENTION *nowPattern );
+    void appearPattern( const PATTERN_RETENTION ctl );
 
     void test( void );
 };
