@@ -61,6 +61,7 @@ void tetrisMap::movePattern( PATTERN_RETENTION *nowPattern ){
       exit( -1 );
       break;
   }
+  nowPattern->state = 4;
 }
 
 void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
