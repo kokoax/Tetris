@@ -15,6 +15,8 @@
 
 #include <termios.h>
 
+#include <pthread.h>
+
 using namespace std;
 
 typedef struct pattern_retention {
