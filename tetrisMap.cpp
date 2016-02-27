@@ -31,40 +31,22 @@ tetrisMap::tetrisMap( void ){
   printMap();
 }
 
-void tetrisMap::movePattern( PATTERN_RETENTION *nowPattern ){
-  switch( nowPattern->state ){
-    case 0:
-      // state == 0 -> 一番最初の状態でマップに表示されていない状態
-      appearPattern( *nowPattern );
-      break;
-    case 1:
-      // state == 1 -> 左ボタンが押されている状態
-      hidePattern( *nowPattern );
-      nowPattern->x--;
-      appearPattern( *nowPattern );
-      break;
-    case 2:
-      // state == 2 -> 右ボタンが押されている状態
-      hidePattern( *nowPattern );
-      nowPattern->x++;
-      appearPattern( *nowPattern );
-      break;
-    case 3:
-      // state == 3 -> 下ボタンが押されている状態
+void tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
       hidePattern( *nowPattern );
       nowPattern->y++;
       appearPattern( *nowPattern );
-      break;
-    case 4:
-      // state == 4 -> パターンが表示されていてかつボタンが何も押されていない状態
-      break;
-    default:
-      // 存在しない状態
-      fprintf( stderr, "Missing nowPattern.getState\n" );
-      exit( -1 );
-      break;
-  }
-  nowPattern->state = 4;
+}
+
+void tetrisMap::movePatternRight( PATTERN_RETENTION *nowPattern ){
+      hidePattern( *nowPattern );
+      nowPattern->x++;
+      appearPattern( *nowPattern );
+}
+
+void tetrisMap::movePatternLeft( PATTERN_RETENTION *nowPattern ){
+      hidePattern( *nowPattern );
+      nowPattern->x--;
+      appearPattern( *nowPattern );
 }
 
 void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
@@ -107,10 +89,10 @@ void tetrisMap::test( void ){
   tmp.y = 0;
   tmp.state = 0;
 
-  movePattern( &tmp );
+  movePatternDown( &tmp );
   //appearPattern( tmp );
   //hidePattern( tmp );
   tmp.state = 2;
-  movePattern( &tmp );
+  movePatternLeft( &tmp );
 }
 
