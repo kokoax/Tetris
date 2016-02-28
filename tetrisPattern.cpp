@@ -67,12 +67,6 @@ void tetrisPattern::initPattern( void ){
 }
 
 void tetrisPattern::initTakePattern( void ){
-  nextPattern.pattern.resize( 5 );
-  nowPattern.pattern.resize( 5 );
-  for( int i = 0; i < 5; i++ ){
-    nextPattern.pattern[i].resize( 5 );
-    nowPattern.pattern[i].resize( 5 );
-  }
   selectPattern( &nextPattern );
   selectPattern( &nowPattern );
 }
