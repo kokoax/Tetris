@@ -15,7 +15,6 @@ class tetrisPattern {
     vector< vector< vector< char > > >Tpatterns;
 
     void vstrcpy( int i, int j, const char *from );
-    void clearStr( int i, int j, const int length );
     void initPattern( void );
     void initTakePattern( void );
 
@@ -26,14 +25,11 @@ class tetrisPattern {
 
     tetrisPattern( void );
 
-    void moveDown( void );
-    void moveRight( void );
-    void moveLeft( void );
-
     void turnRight( void );
     void turnLeft( void );
 
-    void setPattern( PATTERN_RETENTION *pattern );
+    void setPattern( void );
+    void selectPattern( PATTERN_RETENTION *pattern );
 
     void test( void );
 };

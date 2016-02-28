@@ -12,69 +12,63 @@ void tetrisPattern::vstrcpy( int i, int j, const char *from ){
   for( k = 0; from[k] != '\0'; k++ ){
     Tpatterns[i][j][k] = from[k];
   }
-  Tpatterns[i][j][k] = '\0';
-}
-
-void tetrisPattern::clearStr( int i, int j, int length ){
-  for( int k = 0; k < length; k++ ){
-    Tpatterns[i][j][k] = '\0';
-  }
 }
 
 void tetrisPattern::initPattern( void ){
   Tpatterns.resize( 10 );   // ブロックのパターンの数
 
   // 四角のパターン
-  Tpatterns[0].resize( 3 );
-  for( int i = 0; i < 3; i++ ){
-    Tpatterns[0][i].resize( 3 );
+  Tpatterns[0].resize( 2 );
+  for( int i = 0; i < 2; i++ ){
+    Tpatterns[0][i].resize( 2 );
   }
 
   vstrcpy( 0, 0, "##" );
   vstrcpy( 0, 1, "##" );
-  clearStr( 0, 2, (int)Tpatterns[0][0].size() );
 
  // T字のパターン
-  Tpatterns[1].resize( 3 );
-  for( int i = 0; i < 3; i++ ){
-    Tpatterns[1][i].resize( 4 );
+  Tpatterns[1].resize( 2 );
+  for( int i = 0; i < 2; i++ ){
+    Tpatterns[1][i].resize( 3 );
   }
 
   vstrcpy( 1, 0, "###" );
   vstrcpy( 1, 1, " # " );
-  clearStr( 1, 2, (int)Tpatterns[1][0].size() );
 
   // 縦棒のパターン
-  Tpatterns[2].resize( 5 );
-  for( int i = 0; i < 5; i++ ){
-    Tpatterns[2][i].resize( 2 );
+  Tpatterns[2].resize( 4 );
+  for( int i = 0; i < 4; i++ ){
+    Tpatterns[2][i].resize( 1 );
   }
 
   vstrcpy( 2, 0, "#" );
   vstrcpy( 2, 1, "#" );
   vstrcpy( 2, 2, "#" );
   vstrcpy( 2, 3, "#" );
-  clearStr( 2, 4, (int)Tpatterns[2][0].size() );
+
+  // L字のパターン
+  Tpatterns[3].resize( 3 );
+  for( int i = 0; i < 3; i++ ){
+    Tpatterns[3][i].resize( 2 );
+  }
+
+  vstrcpy( 3, 0, "##" );
+  vstrcpy( 3, 1, "# " );
+  vstrcpy( 3, 2, "# " );
 
   //etc...
 
   //最後は番兵
-  Tpatterns[3].resize( 1 );
-  Tpatterns[3][0].resize( 1 );
+  Tpatterns[4].resize( 1 );
+  Tpatterns[4][0].resize( 1 );
 
-  Tpatterns[3][0][0] = '\0';
+  Tpatterns[4][0][0] = '\0';
 
 }
 
 void tetrisPattern::initTakePattern( void ){
-  nextPattern.pattern.resize( 5 );
-  nowPattern.pattern.resize( 5 );
-  for( int i = 0; i < 5; i++ ){
-    nextPattern.pattern[i].resize( 5 );
-    nowPattern.pattern[i].resize( 5 );
-  }
-  setPattern( &nextPattern );
-  setPattern( &nowPattern );
+  selectPattern( &nextPattern );
+  selectPattern( &nowPattern );
 }
 
 tetrisPattern::tetrisPattern( void ){
@@ -82,39 +76,33 @@ tetrisPattern::tetrisPattern( void ){
   initTakePattern();
 }
 
-void tetrisPattern::moveDown( void ){
-
-}
-
-void tetrisPattern::moveRight( void ){
-
-}
-
-void tetrisPattern::moveLeft( void ){
-
-}
-
 // 次に落下するパターンをセットする
-void tetrisPattern::setPattern( PATTERN_RETENTION *pattern ){
+// 現在落下しているパターンに次に落下させるパターンを代入する
+// 次に落下するパターンを生成する
+void tetrisPattern::setPattern( void ){
+  nowPattern = nextPattern;
+  selectPattern( &nextPattern );
+}
+
+void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
   int i, j;
-  int select = rand() % 3;
-  pattern->state = 0;  // パターンをセットしなおす時はパターンが下まで落ちきったときなので状態は表示されていないところまで戻る
-  pattern->x = 0;
-  pattern->y = 0;
+  int select = rand() % 4;
+
+  // パターンが画面に表示されていない状態
+  pattern->state = 0;
+  pattern->x = 1;
+  pattern->y = 1;
+
+  // 選択した落下するパターンのサイズの指定
   pattern->pattern.resize( (int)Tpatterns[select].size() );
   for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
     pattern->pattern[i].resize( (int)Tpatterns[select][i].size() );
   }
-  for( i = 0; Tpatterns[select][i][0] != '\0'; i++ ){
-    for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
+
+  // 選択したパターンを実際に代入
+  for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
+    for( j = 0; j < (int)Tpatterns[select][i].size(); j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
-    }
-    pattern->pattern[i][j] = Tpatterns[select][i][j];
-    if( Tpatterns[select][i+1][0] == '\0' ){
-      for( j = 0; Tpatterns[select][i][j] != '\0'; j++ ){
-        pattern->pattern[i+1][j] = Tpatterns[select][i+1][j];
-      }
-      pattern->pattern[i+1][j] = '\0';
     }
   }
 }
