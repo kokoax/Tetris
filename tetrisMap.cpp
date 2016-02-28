@@ -36,9 +36,10 @@ void tetrisMap::printMap( void ){
 
 
 tetrisMap::tetrisMap( void ){
+  score = 0;
   initMap();
-  //test();
   printMap();
+  printScore();
 }
 
 void tetrisMap::putPatternMap( PATTERN_RETENTION nowPattern ){
@@ -66,17 +67,24 @@ void tetrisMap::DeleteColumnAligned( void ){
   for( int i = 0; i < MAP_HIGH; i++ ){
     for( int j = 0; j < MAP_WIDTH; j++ ){
       if( map[i][j] != '#' )  break;
-      if( j == MAP_WIDTH-3 ){
+      if( j == MAP_WIDTH-1 ){
         DeleteColumn( i-- );
+        score += 10;
       }
     }
   }
+}
+
+void tetrisMap::printScore( void ){
+  fprintf( stderr, "\e[%d;%dH", MAP_HIGH+3, 1 );
+  fprintf( stderr, "Score : %d", score );
 }
 
 void tetrisMap::attachProcess( PATTERN_RETENTION *nowPattern ){
   putPatternMap( *nowPattern );
   DeleteColumnAligned();
   printMap();
+  printScore();
 }
 
 int tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
