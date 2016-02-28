@@ -19,7 +19,7 @@
 #include <mutex>
 #include <chrono>
 
-#define MAP_HIGH 30
+#define MAP_HIGH 20
 #define MAP_WIDTH 15
 
 using namespace std;

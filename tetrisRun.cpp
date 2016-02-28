@@ -21,7 +21,7 @@ void tetrisRun::KeyAction( tetrisPattern &Pattern, tetrisMap &Map ){
       // ex.
       // Pattern.turn();
       // Map.appearPattern( Pattern.nowPattern );
-      //
+      Map.turnPatternRight( &Pattern.nowPattern );
     } else if( data == 0x50 || data == 's' ){
       //下キー
       Map.movePatternDown( &Pattern.nowPattern );
