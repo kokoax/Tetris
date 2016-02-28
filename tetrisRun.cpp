@@ -26,6 +26,7 @@ void tetrisRun::KeyAction( tetrisPattern &Pattern, tetrisMap &Map ){
       //下キー
       if( Map.movePatternDown( &Pattern.nowPattern ) == false ){
         Pattern.setPattern();
+        Map.appearPattern( Pattern.nowPattern );
       }
     } else if( data == 0x4B || data == 'a' ){
       //左キー
@@ -55,6 +56,7 @@ void tetrisRun::TimeAction( tetrisPattern &Pattern, tetrisMap &Map ){
 
     if( Map.movePatternDown( &Pattern.nowPattern ) == false ){
       Pattern.setPattern();
+      Map.appearPattern( Pattern.nowPattern );
     }
 
     // alock( KeyAction );
@@ -66,6 +68,7 @@ tetrisRun::tetrisRun( void ){
   tetrisPattern Pattern;
   tetrisMap     Map;
 
+  Map.appearPattern( Pattern.nowPattern );
   thread keyAction(  &tetrisRun::KeyAction , this, ref( Pattern ), ref( Map ) );
   thread timeAction( &tetrisRun::TimeAction, this, ref( Pattern ), ref( Map ) );
 
