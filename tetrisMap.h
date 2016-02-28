@@ -10,11 +10,12 @@ class tetrisMap {
     void initMap( void );
     void printMap( void );
     void hidePattern( const PATTERN_RETENTION ctl );
+    int checkPenetrate( PATTERN_RETENTION nowPattern );
 
   public:
     tetrisMap( void );
 
-    void movePatternDown( PATTERN_RETENTION *nowPattern );
+    int  movePatternDown( PATTERN_RETENTION *nowPattern );
     void movePatternRight( PATTERN_RETENTION *nowPattern );
     void movePatternLeft( PATTERN_RETENTION *nowPattern );
 
