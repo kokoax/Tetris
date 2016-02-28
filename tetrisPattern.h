@@ -31,6 +31,8 @@ class tetrisPattern {
     void setPattern( void );
     void selectPattern( PATTERN_RETENTION *pattern );
 
+    void printNextPattern( void );
+
     void test( void );
 };
 

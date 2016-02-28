@@ -74,6 +74,22 @@ void tetrisPattern::initTakePattern( void ){
 tetrisPattern::tetrisPattern( void ){
   initPattern();
   initTakePattern();
+
+  for( int i = 0; i < 8; i++ ){
+    fprintf( stderr, "\033[%d;%dH", 1, i+MAP_WIDTH+5 );
+    fprintf( stderr, "+" );
+    fprintf( stderr, "\033[%d;%dH", 7, i+MAP_WIDTH+5 );
+    fprintf( stderr, "+" );
+  }
+  for( int i = 0; i < 8; i++ ){
+    fprintf( stderr, "\033[%d;%dH", i, MAP_WIDTH+5 );
+    fprintf( stderr, "+" );
+    fprintf( stderr, "\033[%d;%dH", i, MAP_WIDTH+7+5 );
+    fprintf( stderr, "+" );
+  }
+  fprintf( stderr, "\e[%d;%dH", 8, MAP_WIDTH+5-1 );
+  fprintf( stderr, "NEXT BLOCK" );
+  printNextPattern();
 }
 
 // 次に落下するパターンをセットする
@@ -110,6 +126,26 @@ void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
   for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
     for( j = 0; j < (int)Tpatterns[select][i].size(); j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
+    }
+  }
+}
+
+void tetrisPattern::printNextPattern( void ){
+  for( int i = 0 ; i < (int)nowPattern.pattern.size(); i++ ){
+    for( int j = 0; j < (int)nowPattern.pattern[0].size(); j++ ){
+      if( nowPattern.pattern[i][j] == '#' ){
+        fprintf( stderr, "\033[%d;%dH", 6-(int)nowPattern.pattern.size()+i, 6-(int)nowPattern.pattern[0].size()+j+MAP_WIDTH+4 );
+        fprintf( stderr, " " );
+      }
+    }
+  }
+
+  for( int i = 0 ; i < (int)nextPattern.pattern.size(); i++ ){
+    for( int j = 0; j < (int)nextPattern.pattern[0].size(); j++ ){
+      if( nextPattern.pattern[i][j] == '#' ){
+        fprintf( stderr, "\033[%d;%dH", 6-(int)nextPattern.pattern.size()+i, 6-(int)nextPattern.pattern[0].size()+j+MAP_WIDTH+4 );
+        fprintf( stderr, "#" );
+      }
     }
   }
 }
