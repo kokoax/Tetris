@@ -79,6 +79,32 @@ void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
   }
 }
 
+void tetrisMap::turnPatternRight( PATTERN_RETENTION *nowPattern ){
+  PATTERN_RETENTION work;
+
+  hidePattern( *nowPattern );
+
+  work.pattern.resize( (int)nowPattern->pattern[0].size() );
+  for( int i = 0; i < (int)nowPattern->pattern[0].size(); i++ ){
+    work.pattern[i].resize( (int)nowPattern->pattern.size() );
+  }
+
+
+  for( int i = 0; i < (int)nowPattern->pattern.size(); i++ ){
+    for( int j = 0; j < (int)nowPattern->pattern[0].size(); j++ ){
+      work.pattern[j][(int)nowPattern->pattern.size() - i -1] = nowPattern->pattern[i][j];
+      //work.pattern[j][(int)nowPattern->pattern.size() - i -1] = '#';
+      fprintf( stderr, "\e[%d;%dH", i+33, j+1 );
+      fprintf( stderr, "%c", nowPattern->pattern[i][j] );
+    }
+  }
+  nowPattern->pattern = work.pattern;
+  //*nowPattern = work;
+
+  appearPattern( *nowPattern );
+
+}
+
 void tetrisMap::test( void ){
   PATTERN_RETENTION tmp;
   tmp.pattern.resize( 3 );

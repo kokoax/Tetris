@@ -13,9 +13,14 @@ class tetrisMap {
 
   public:
     tetrisMap( void );
+
     void movePatternDown( PATTERN_RETENTION *nowPattern );
     void movePatternRight( PATTERN_RETENTION *nowPattern );
     void movePatternLeft( PATTERN_RETENTION *nowPattern );
+
+    void turnPatternRight( PATTERN_RETENTION *nowPattern );
+    void turnPatternLeft( PATTERN_RETENTION *nowPattern );
+
     void appearPattern( const PATTERN_RETENTION ctl );
 
     void test( void );
