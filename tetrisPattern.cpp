@@ -46,7 +46,7 @@ void tetrisPattern::initPattern( void ){
   vstrcpy( 2, 2, "#" );
   vstrcpy( 2, 3, "#" );
 
-// 縦棒のパターン
+  // L字のパターン
   Tpatterns[3].resize( 3 );
   for( int i = 0; i < 3; i++ ){
     Tpatterns[3][i].resize( 2 );
@@ -88,15 +88,18 @@ void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
   int i, j;
   int select = rand() % 4;
 
-  pattern->state = 0;  // パターンが画面に表示されていない状態
+  // パターンが画面に表示されていない状態
+  pattern->state = 0;
   pattern->x = 1;
   pattern->y = 1;
 
+  // 選択した落下するパターンのサイズの指定
   pattern->pattern.resize( (int)Tpatterns[select].size() );
   for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
     pattern->pattern[i].resize( (int)Tpatterns[select][i].size() );
   }
 
+  // 選択したパターンを実際に代入
   for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
     for( j = 0; j < (int)Tpatterns[select][i].size(); j++ ){
       pattern->pattern[i][j] = Tpatterns[select][i][j];
