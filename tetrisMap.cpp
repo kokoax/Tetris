@@ -121,9 +121,11 @@ int tetrisMap::checkPenetrate( PATTERN_RETENTION nowPattern ){
     return RIGHT;
   } else {
     for( int i = 0; i < (int)nowPattern.pattern.size(); i++ ){
-      if( ( map[nowPattern.y + (int)nowPattern.pattern.size() -2][i+nowPattern.x-1] == '#' ) &&
-          ( nowPattern.pattern[(int)nowPattern.pattern.size() -1][i] =='#' ) ){
-        return DOWN;
+      for( int j = 0; j < (int)nowPattern.pattern[0].size(); j++ ){
+        if( ( nowPattern.pattern[i][j] == '#' ) &&
+            ( map[i + nowPattern.y -1][j + nowPattern.x -1] == '#' ) ){
+          return DOWN;
+        }
       }
     }
   }
@@ -152,7 +154,7 @@ void tetrisMap::turnPatternRight( PATTERN_RETENTION *nowPattern ){
     nowPattern->pattern = work.pattern;
   }
 
-    appearPattern( *nowPattern );
+  appearPattern( *nowPattern );
 }
 
 void tetrisMap::test( void ){
