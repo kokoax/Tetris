@@ -22,6 +22,11 @@
 #define MAP_HIGH 20
 #define MAP_WIDTH 15
 
+#define DOWN  2
+#define RIGHT 3
+#define LEFT  4
+#define UP    5
+
 using namespace std;
 
 typedef struct pattern_retention {

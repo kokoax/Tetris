@@ -24,7 +24,9 @@ void tetrisRun::KeyAction( tetrisPattern &Pattern, tetrisMap &Map ){
       Map.turnPatternRight( &Pattern.nowPattern );
     } else if( data == 0x50 || data == 's' ){
       //下キー
-      Map.movePatternDown( &Pattern.nowPattern );
+      if( Map.movePatternDown( &Pattern.nowPattern ) == false ){
+        Pattern.setPattern();
+      }
     } else if( data == 0x4B || data == 'a' ){
       //左キー
       Map.movePatternLeft( &Pattern.nowPattern );
@@ -46,17 +48,14 @@ void tetrisRun::TimeAction( tetrisPattern &Pattern, tetrisMap &Map ){
   int i = 0;
   // 並列処理2 TimeAction( &Pattern, &Map )
   while( 1 ) {
-    //int data = mygetch();
-
     //1000000 us = 1 s
     this_thread::sleep_for( chrono::microseconds( 1000000 ) );
 
     cpp_mutex.lock();
 
-    Map.movePatternDown( &Pattern.nowPattern );
-
-    //printf( "\e[%d;1H", i+33 );
-    //printf( "%d", i++ );
+    if( Map.movePatternDown( &Pattern.nowPattern ) == false ){
+      Pattern.setPattern();
+    }
 
     // alock( KeyAction );
     cpp_mutex.unlock();
