@@ -42,11 +42,24 @@ tetrisMap::tetrisMap( void ){
   printMap();
 }
 
+void tetrisMap::putPatternMap( PATTERN_RETENTION nowPattern ){
+  for( int i = nowPattern.y; i < nowPattern.y+(int)nowPattern.pattern.size(); i++ ){
+    for( int j = nowPattern.x; j < nowPattern.x+(int)nowPattern.pattern[0].size(); j++ ){
+      if( nowPattern.pattern[i-nowPattern.y][j-nowPattern.x] == '#' ){
+        map[i-1][j-1] = '#';
+      }
+    }
+  }
+}
+
 int tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
   //if( nowPattern->y < MAP_HIGH - (int)nowPattern->pattern.size() -1 ){
   hidePattern( *nowPattern );
   nowPattern->y++;
   if( checkPenetrate( *nowPattern ) != true ){
+    nowPattern->y--;
+    putPatternMap( *nowPattern );
+    printMap();
     return false;
   }
   appearPattern( *nowPattern );
