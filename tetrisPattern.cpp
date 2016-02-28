@@ -80,7 +80,14 @@ tetrisPattern::tetrisPattern( void ){
 // 現在落下しているパターンに次に落下させるパターンを代入する
 // 次に落下するパターンを生成する
 void tetrisPattern::setPattern( void ){
+  /*
+  nowPattern.pattern = nextPattern.pattern;
+  nowPattern.x = 1;
+  nowPattern.y = 1;
+  nowPattern.state = 0;
+  */
   nowPattern = nextPattern;
+
   selectPattern( &nextPattern );
 }
 
