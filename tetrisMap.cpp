@@ -63,8 +63,10 @@ void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ' ';
-      fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
-      fprintf( stderr, " " );
+      if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' ){
+        fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
+        fprintf( stderr, " " );
+      }
     }
   }
 }
@@ -73,8 +75,10 @@ void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ctl.pattern[i-ctl.y][j-ctl.x];
-      fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
-      fprintf( stderr, "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+      if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' ){
+        fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
+        fprintf( stderr, "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+      }
     }
   }
 }
