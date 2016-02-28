@@ -60,8 +60,8 @@ void tetrisMap::movePatternLeft( PATTERN_RETENTION *nowPattern ){
 }
 
 void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
-  for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size()-1; i++ ){
-    for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size()-1; j++ ){
+  for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
+    for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ' ';
       fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
       fprintf( stderr, " " );
@@ -70,8 +70,8 @@ void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
 }
 
 void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
-  for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size()-1; i++ ){
-    for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size()-1; j++ ){
+  for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
+    for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ctl.pattern[i-ctl.y][j-ctl.x];
       fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
       fprintf( stderr, "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
@@ -89,20 +89,15 @@ void tetrisMap::turnPatternRight( PATTERN_RETENTION *nowPattern ){
     work.pattern[i].resize( (int)nowPattern->pattern.size() );
   }
 
-
   for( int i = 0; i < (int)nowPattern->pattern.size(); i++ ){
     for( int j = 0; j < (int)nowPattern->pattern[0].size(); j++ ){
       work.pattern[j][(int)nowPattern->pattern.size() - i -1] = nowPattern->pattern[i][j];
-      //work.pattern[j][(int)nowPattern->pattern.size() - i -1] = '#';
-      fprintf( stderr, "\e[%d;%dH", i+33, j+1 );
-      fprintf( stderr, "%c", nowPattern->pattern[i][j] );
     }
   }
+
   nowPattern->pattern = work.pattern;
-  //*nowPattern = work;
 
   appearPattern( *nowPattern );
-
 }
 
 void tetrisMap::test( void ){
