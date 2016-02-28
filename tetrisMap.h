@@ -12,6 +12,9 @@ class tetrisMap {
     void hidePattern( const PATTERN_RETENTION ctl );
     int  checkPenetrate( PATTERN_RETENTION nowPattern );
     void putPatternMap( PATTERN_RETENTION nowPattern );
+    void attachProcess( PATTERN_RETENTION *nowPattern );
+    void DeleteColumnAligned( void );
+    void DeleteColumn( int number );
 
   public:
     tetrisMap( void );
