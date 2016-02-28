@@ -46,13 +46,23 @@ void tetrisPattern::initPattern( void ){
   vstrcpy( 2, 2, "#" );
   vstrcpy( 2, 3, "#" );
 
+// 縦棒のパターン
+  Tpatterns[3].resize( 3 );
+  for( int i = 0; i < 3; i++ ){
+    Tpatterns[3][i].resize( 2 );
+  }
+
+  vstrcpy( 3, 0, "##" );
+  vstrcpy( 3, 1, "# " );
+  vstrcpy( 3, 2, "# " );
+
   //etc...
 
   //最後は番兵
-  Tpatterns[3].resize( 1 );
-  Tpatterns[3][0].resize( 1 );
+  Tpatterns[4].resize( 1 );
+  Tpatterns[4][0].resize( 1 );
 
-  Tpatterns[3][0][0] = '\0';
+  Tpatterns[4][0][0] = '\0';
 
 }
 
@@ -82,7 +92,7 @@ void tetrisPattern::setPattern( void ){
 
 void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
   int i, j;
-  int select = rand() % 3;
+  int select = rand() % 4;
 
   pattern->state = 0;  // パターンが画面に表示されていない状態
   pattern->x = 1;
