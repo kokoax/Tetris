@@ -6,6 +6,7 @@
 class tetrisMap {
   private:
     char map[MAP_HIGH][MAP_WIDTH];
+    int score;
 
     void initMap( void );
     void printMap( void );
@@ -15,6 +16,7 @@ class tetrisMap {
     void attachProcess( PATTERN_RETENTION *nowPattern );
     void DeleteColumnAligned( void );
     void DeleteColumn( int number );
+    void printScore( void );
 
   public:
     tetrisMap( void );
