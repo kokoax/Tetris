@@ -15,8 +15,14 @@ void tetrisMap::printMap( void ){
     //先頭に行数を表示しているため左に二個ずらしている
     for( int j = 1; j <= MAP_WIDTH; j++ ){
       // 座標( i, j )に次printfで出力する位置を変更する
-      fprintf( stderr, "\033[%d;%dH", i+1, j+1 );
-      fprintf( stderr, "%c", map[i-1][j-1] );
+      if( map[i-1][j-1] != ' ' ){
+        fprintf( stderr, "\e[%d;%dH\e[%dm", i+1, j+1, map[i-1][j-1]+41 );
+      } else {
+        fprintf( stderr, "\033[%d;%dH\e[49m", i+1, j+1 );
+      }
+      fprintf( stderr, " " );
+      //fprintf( stderr, "\e[33;1H%d", map[i-1][j-1]+41 );
+      //fprintf( stderr, "%c", map[i-1][j-1] );
     }
   }
 }
@@ -34,7 +40,8 @@ void tetrisMap::putPatternMap( PATTERN_RETENTION nowPattern ){
   for( int i = nowPattern.y; i < nowPattern.y+(int)nowPattern.pattern.size(); i++ ){
     for( int j = nowPattern.x; j < nowPattern.x+(int)nowPattern.pattern[0].size(); j++ ){
       if( nowPattern.pattern[i-nowPattern.y][j-nowPattern.x] == '#' ){
-        map[i-1][j-1] = '#';
+        //map[i-1][j-1] = '#';
+        map[i-1][j-1] = nowPattern.select;
       }
     }
   }
@@ -54,7 +61,7 @@ void tetrisMap::DeleteColumn( int number ){
 void tetrisMap::DeleteColumnAligned( void ){
   for( int i = 0; i < MAP_HIGH; i++ ){
     for( int j = 0; j < MAP_WIDTH; j++ ){
-      if( map[i][j] != '#' )  break;
+      if( map[i][j] == ' ' )  break;
       if( j == MAP_WIDTH-1 ){
         DeleteColumn( i-- );
         score += 10;
@@ -64,7 +71,7 @@ void tetrisMap::DeleteColumnAligned( void ){
 }
 
 void tetrisMap::printScore( void ){
-  fprintf( stderr, "\e[%d;%dH", MAP_HIGH+3, 1 );
+  fprintf( stderr, "\e[%d;%dH\e[49m", MAP_HIGH+3, 1 );
   fprintf( stderr, "Score : %d", score );
 }
 
@@ -101,7 +108,7 @@ void tetrisMap::printOther( void ){
 
 void tetrisMap::checkGameover( void ){
   for( int i = 0; i < MAP_WIDTH; i++ ){
-    if( map[0][i] == '#' ){
+    if( map[0][i] != ' ' ){
       fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
       fprintf( stderr, "\e[2;1HPlease push any key" );
       mygetch();
@@ -159,7 +166,7 @@ void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ' ';
       if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' && i >= 1 ){
-        fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
+        fprintf( stderr, "\e[%d;%dH\e[49m", i+1, j+1 );
         fprintf( stderr, " " );
       }
     }
@@ -171,8 +178,9 @@ void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ctl.pattern[i-ctl.y][j-ctl.x];
       if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' && i >= 1 ){
-        fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
-        fprintf( stderr, "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+        fprintf( stderr, "\e[%d;%dH\e[%dm", i+1, j+1, ctl.select+41 );
+        //fprintf( stderr, "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
+        fprintf( stderr, " " );
       }
     }
   }
@@ -191,7 +199,7 @@ int tetrisMap::checkPenetrate( PATTERN_RETENTION nowPattern ){
     for( int i = 0; i < (int)nowPattern.pattern.size(); i++ ){
       for( int j = 0; j < (int)nowPattern.pattern[0].size(); j++ ){
         if( ( nowPattern.pattern[i][j] == '#' ) &&
-            ( map[i + nowPattern.y -1][j + nowPattern.x -1] == '#' ) ){
+            ( map[i + nowPattern.y -1][j + nowPattern.x -1] != ' ' ) ){
           return DOWN;
         }
       }
