@@ -35,6 +35,7 @@ void tetrisPattern::initPattern( void ){
   vstrcpy( 1, 0, "###" );
   vstrcpy( 1, 1, " # " );
 
+
   // 縦棒のパターン
   Tpatterns[2].resize( 4 );
   for( int i = 0; i < 4; i++ ){
@@ -123,8 +124,8 @@ void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
 
   // パターンが画面に表示されていない状態
   pattern->state = 0;
-  pattern->x = 1;
-  pattern->y = 1;
+  pattern->x = MAP_WIDTH/2;
+  pattern->y = 1 - (int)Tpatterns[pattern->select].size();
 
   // 選択した落下するパターンのサイズの指定
   pattern->pattern.resize( (int)Tpatterns[pattern->select].size() );
