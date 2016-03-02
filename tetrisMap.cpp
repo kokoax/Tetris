@@ -101,7 +101,7 @@ void tetrisMap::printOther( void ){
 
 void tetrisMap::checkGameover( void ){
   for( int i = 0; i < MAP_WIDTH; i++ ){
-    if( map[4][i] == '#' ){
+    if( map[0][i] == '#' ){
       fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
       fprintf( stderr, "\e[2;1HPlease push any key" );
       mygetch();
@@ -122,7 +122,8 @@ int tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
   //if( nowPattern->y < MAP_HIGH - (int)nowPattern->pattern.size() -1 ){
   hidePattern( *nowPattern );
   nowPattern->y++;
-  if( checkPenetrate( *nowPattern ) != true ){
+  int tmp = checkPenetrate( *nowPattern );
+  if( tmp != true && tmp != UP ){
     nowPattern->y--;
     attachProcess( &(*nowPattern) );
     return false;
@@ -135,7 +136,8 @@ void tetrisMap::movePatternRight( PATTERN_RETENTION *nowPattern ){
   //if( nowPattern->x < MAP_WIDTH - (int)nowPattern->pattern[0].size() -1 ){
   hidePattern( *nowPattern );
   nowPattern->x++;
-  if( checkPenetrate( *nowPattern ) != true ){
+  int tmp = checkPenetrate( *nowPattern );
+  if( tmp != true && tmp != UP ){
     nowPattern->x--;
   }
   appearPattern( *nowPattern );
@@ -145,7 +147,8 @@ void tetrisMap::movePatternLeft( PATTERN_RETENTION *nowPattern ){
   //if( nowPattern->x > 1 ){
   hidePattern( *nowPattern );
   nowPattern->x--;
-  if( checkPenetrate( *nowPattern ) != true ){
+  int tmp = checkPenetrate( *nowPattern );
+  if( tmp != true && tmp != UP ){
     nowPattern->x++;
   }
   appearPattern( *nowPattern );
@@ -155,7 +158,7 @@ void tetrisMap::hidePattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ' ';
-      if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' ){
+      if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' && i >= 1 ){
         fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
         fprintf( stderr, " " );
       }
@@ -167,7 +170,7 @@ void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
   for( int i = ctl.y; i < ctl.y+(int)ctl.pattern.size(); i++ ){
     for( int j = ctl.x; j < ctl.x+(int)ctl.pattern[0].size(); j++ ){
       //map[i][j] = ctl.pattern[i-ctl.y][j-ctl.x];
-      if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' ){
+      if( ctl.pattern[i-ctl.y][j-ctl.x] == '#' && i >= 1 ){
         fprintf( stderr, "\e[%d;%dH", i+1, j+1 );
         fprintf( stderr, "%c", ctl.pattern[i-ctl.y][j-ctl.x] );
       }
@@ -176,14 +179,14 @@ void tetrisMap::appearPattern( const PATTERN_RETENTION ctl ){
 }
 
 int tetrisMap::checkPenetrate( PATTERN_RETENTION nowPattern ){
-  if ( nowPattern.y < 1 ){
-    return UP;
-  } else if( nowPattern.y > ( MAP_HIGH+2  - (int)nowPattern.pattern.size()    -1 ) ){
-    return DOWN;
-  } else if( nowPattern.x < 1 ){
+  if( nowPattern.x < 1 ){
     return LEFT;
   } else if( nowPattern.x > ( MAP_WIDTH+2 - (int)nowPattern.pattern[0].size() -1 ) ){
     return RIGHT;
+  } else if ( nowPattern.y < 1 ){
+    return UP;
+  } else if( nowPattern.y > ( MAP_HIGH+2  - (int)nowPattern.pattern.size()    -1 ) ){
+    return DOWN;
   } else {
     for( int i = 0; i < (int)nowPattern.pattern.size(); i++ ){
       for( int j = 0; j < (int)nowPattern.pattern[0].size(); j++ ){
