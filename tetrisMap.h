@@ -17,6 +17,7 @@ class tetrisMap {
     void DeleteColumnAligned( void );
     void DeleteColumn( int number );
     void printScore( void );
+    void printOther( void );
 
   public:
     tetrisMap( void );

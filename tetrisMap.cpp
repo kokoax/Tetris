@@ -13,23 +13,11 @@ void tetrisMap::initMap( void ){
 void tetrisMap::printMap( void ){
   for( int i = 1; i <= MAP_HIGH; i++ ){
     //先頭に行数を表示しているため左に二個ずらしている
-    for( int j = 1; j <= MAP_WIDTH+1; j++ ){
+    for( int j = 1; j <= MAP_WIDTH; j++ ){
       // 座標( i, j )に次printfで出力する位置を変更する
       fprintf( stderr, "\033[%d;%dH", i+1, j+1 );
       fprintf( stderr, "%c", map[i-1][j-1] );
     }
-  }
-  for( int i = 1; i <= MAP_WIDTH+2; i++ ){
-    fprintf( stderr, "\033[%d;%dH", 1, i );
-    fprintf( stderr, "+" );
-    fprintf( stderr, "\033[%d;%dH", MAP_HIGH+2, i );
-    fprintf( stderr, "+" );
-  }
-  for( int i = 1; i <= MAP_HIGH+2; i++ ){
-    fprintf( stderr, "\033[%d;%dH", i, 1 );
-    fprintf( stderr, "+" );
-    fprintf( stderr, "\033[%d;%dH", i, MAP_WIDTH+2 );
-    fprintf( stderr, "+" );
   }
 }
 
@@ -39,6 +27,7 @@ tetrisMap::tetrisMap( void ){
   initMap();
   printMap();
   printScore();
+  printOther();
 }
 
 void tetrisMap::putPatternMap( PATTERN_RETENTION nowPattern ){
@@ -77,6 +66,37 @@ void tetrisMap::DeleteColumnAligned( void ){
 void tetrisMap::printScore( void ){
   fprintf( stderr, "\e[%d;%dH", MAP_HIGH+3, 1 );
   fprintf( stderr, "Score : %d", score );
+}
+
+void tetrisMap::printOther( void ){
+  //パターンが落ちてくるフィールドの囲いを表示
+  for( int i = 1; i <= MAP_WIDTH+2; i++ ){
+    fprintf( stderr, "\033[%d;%dH", 1, i );
+    fprintf( stderr, "+" );
+    fprintf( stderr, "\033[%d;%dH", MAP_HIGH+2, i );
+    fprintf( stderr, "+" );
+  }
+  for( int i = 1; i <= MAP_HIGH+2; i++ ){
+    fprintf( stderr, "\033[%d;%dH", i, 1 );
+    fprintf( stderr, "+" );
+    fprintf( stderr, "\033[%d;%dH", i, MAP_WIDTH+2 );
+    fprintf( stderr, "+" );
+  }
+  //次の落ちてくるパターンの予告をする部分の囲いを表示
+  for( int i = 0; i < 8; i++ ){
+    fprintf( stderr, "\033[%d;%dH", 1, i+MAP_WIDTH+5 );
+    fprintf( stderr, "+" );
+    fprintf( stderr, "\033[%d;%dH", 7, i+MAP_WIDTH+5 );
+    fprintf( stderr, "+" );
+  }
+  for( int i = 0; i < 8; i++ ){
+    fprintf( stderr, "\033[%d;%dH", i, MAP_WIDTH+5 );
+    fprintf( stderr, "+" );
+    fprintf( stderr, "\033[%d;%dH", i, MAP_WIDTH+7+5 );
+    fprintf( stderr, "+" );
+  }
+  fprintf( stderr, "\e[%d;%dH", 8, MAP_WIDTH+5-1 );
+  fprintf( stderr, "NEXT BLOCK" );
 }
 
 void tetrisMap::attachProcess( PATTERN_RETENTION *nowPattern ){
