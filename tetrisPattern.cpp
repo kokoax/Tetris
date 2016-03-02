@@ -134,7 +134,7 @@ void tetrisPattern::printNextPattern( void ){
   for( int i = 0 ; i < (int)Tpatterns[nowPattern.select].size(); i++ ){
     for( int j = 0; j < (int)Tpatterns[nowPattern.select][0].size(); j++ ){
       if( Tpatterns[nowPattern.select][i][j] == '#' ){
-        fprintf( stderr, "\033[%d;%dH", 6-(int)nowPattern.pattern.size()+i, 6-(int)nowPattern.pattern[0].size()+j+MAP_WIDTH+4 );
+        fprintf( stderr, "\033[%d;%dH", 6-(int)Tpatterns[nowPattern.select].size()+i, 6-(int)Tpatterns[nowPattern.select][0].size()+j+MAP_WIDTH+4 );
         fprintf( stderr, " " );
       }
     }

@@ -58,6 +58,7 @@ void tetrisRun::TimeAction( tetrisPattern &Pattern, tetrisMap &Map ){
     if( Map.movePatternDown( &Pattern.nowPattern ) == false ){
       Pattern.setPattern();
       Map.appearPattern( Pattern.nowPattern );
+      Pattern.printNextPattern();
     }
 
     // alock( KeyAction );
