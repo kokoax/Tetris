@@ -57,13 +57,44 @@ void tetrisPattern::initPattern( void ){
   vstrcpy( 3, 1, "# " );
   vstrcpy( 3, 2, "# " );
 
+  // 逆L字のパターン
+  Tpatterns[4].resize( 3 );
+  for( int i = 0; i < 3; i++ ){
+    Tpatterns[4][i].resize( 2 );
+  }
+
+  vstrcpy( 4, 0, "##" );
+  vstrcpy( 4, 1, " #" );
+  vstrcpy( 4, 2, " #" );
+
+  // ジグザグのパターン
+  Tpatterns[5].resize( 3 );
+  for( int i = 0; i < 3; i++ ){
+    Tpatterns[5][i].resize( 2 );
+  }
+
+  vstrcpy( 5, 0, " #" );
+  vstrcpy( 5, 1, "##" );
+  vstrcpy( 5, 2, "# " );
+
+  // 逆ジグザグのパターン
+  Tpatterns[6].resize( 3 );
+  for( int i = 0; i < 3; i++ ){
+    Tpatterns[6][i].resize( 2 );
+  }
+
+  vstrcpy( 6, 0, "#" );
+  vstrcpy( 6, 1, "##" );
+  vstrcpy( 6, 2, " #" );
+
+
   //etc...
 
   //最後は番兵
-  Tpatterns[4].resize( 1 );
-  Tpatterns[4][0].resize( 1 );
+  Tpatterns[7].resize( 1 );
+  Tpatterns[7][0].resize( 1 );
 
-  Tpatterns[4][0][0] = '\0';
+  Tpatterns[5][0][0] = '\0';
 
 }
 
@@ -83,20 +114,13 @@ tetrisPattern::tetrisPattern( void ){
 // 現在落下しているパターンに次に落下させるパターンを代入する
 // 次に落下するパターンを生成する
 void tetrisPattern::setPattern( void ){
-  /*
-  nowPattern.pattern = nextPattern.pattern;
-  nowPattern.x = 1;
-  nowPattern.y = 1;
-  nowPattern.state = 0;
-  */
   nowPattern = nextPattern;
-
   selectPattern( &nextPattern );
 }
 
 void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
   int i, j;
-  pattern->select = rand() % 4;
+  pattern->select = rand() % 7;
 
   // パターンが画面に表示されていない状態
   pattern->state = 0;

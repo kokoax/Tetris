@@ -218,7 +218,8 @@ void tetrisMap::turnPatternRight( PATTERN_RETENTION *nowPattern ){
     }
   }
 
-  if( checkPenetrate( work ) == true ){
+  int tmp = checkPenetrate( work );
+  if( tmp == true || tmp == UP ){
     nowPattern->pattern = work.pattern;
   }
 
