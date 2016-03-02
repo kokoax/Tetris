@@ -101,7 +101,7 @@ void tetrisMap::printOther( void ){
 
 void tetrisMap::checkGameover( void ){
   for( int i = 0; i < MAP_WIDTH; i++ ){
-    if( map[5][i] == '#' ){
+    if( map[4][i] == '#' ){
       fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
       fprintf( stderr, "\e[2;1HPlease push any key" );
       mygetch();
