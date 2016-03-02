@@ -111,8 +111,8 @@ void tetrisMap::checkGameover( void ){
 }
 
 void tetrisMap::attachProcess( PATTERN_RETENTION *nowPattern ){
-  checkGameover();
   putPatternMap( *nowPattern );
+  checkGameover();
   DeleteColumnAligned();
   printMap();
   printScore();
