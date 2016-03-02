@@ -11,7 +11,6 @@ void tetrisMap::initMap( void ){
 }
 
 void tetrisMap::printMap( void ){
-  fprintf( stderr, "\e[1J" );    // 画面クリア
   for( int i = 1; i <= MAP_HIGH; i++ ){
     //先頭に行数を表示しているため左に二個ずらしている
     for( int j = 1; j <= MAP_WIDTH+1; j++ ){

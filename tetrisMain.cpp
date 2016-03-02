@@ -5,6 +5,7 @@
 
 int main( void ){
   srand( (unsigned int)time(NULL) );
+  fprintf( stderr, "\e[2J" );
   tetrisRun asd;
 
 	return 0;
