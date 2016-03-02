@@ -18,6 +18,7 @@ class tetrisMap {
     void DeleteColumn( int number );
     void checkGameover( void );
     void printScore( void );
+    void printOther( void );
 
   public:
     tetrisMap( void );
