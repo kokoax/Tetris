@@ -6,7 +6,6 @@
 class tetrisMap {
   private:
     char map[MAP_HIGH][MAP_WIDTH];
-    int score;
 
     void initMap( void );
     void printMap( void );
@@ -22,6 +21,7 @@ class tetrisMap {
 
   public:
     tetrisMap( void );
+    int score;
 
     int  movePatternDown( PATTERN_RETENTION *nowPattern );
     void movePatternRight( PATTERN_RETENTION *nowPattern );
