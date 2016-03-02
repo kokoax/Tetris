@@ -33,6 +33,7 @@ typedef struct pattern_retention {
   vector< vector< char > > pattern;
   int x, y;
   int state;
+  int select;
 } PATTERN_RETENTION;
 
 

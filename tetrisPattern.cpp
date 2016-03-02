@@ -109,7 +109,7 @@ void tetrisPattern::setPattern( void ){
 
 void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
   int i, j;
-  int select = rand() % 4;
+  pattern->select = rand() % 4;
 
   // パターンが画面に表示されていない状態
   pattern->state = 0;
@@ -117,23 +117,23 @@ void tetrisPattern::selectPattern( PATTERN_RETENTION *pattern ){
   pattern->y = 1;
 
   // 選択した落下するパターンのサイズの指定
-  pattern->pattern.resize( (int)Tpatterns[select].size() );
-  for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
-    pattern->pattern[i].resize( (int)Tpatterns[select][i].size() );
+  pattern->pattern.resize( (int)Tpatterns[pattern->select].size() );
+  for( i = 0; i < (int)Tpatterns[pattern->select].size(); i++ ){
+    pattern->pattern[i].resize( (int)Tpatterns[pattern->select][i].size() );
   }
 
   // 選択したパターンを実際に代入
-  for( i = 0; i < (int)Tpatterns[select].size(); i++ ){
-    for( j = 0; j < (int)Tpatterns[select][i].size(); j++ ){
-      pattern->pattern[i][j] = Tpatterns[select][i][j];
+  for( i = 0; i < (int)Tpatterns[pattern->select].size(); i++ ){
+    for( j = 0; j < (int)Tpatterns[pattern->select][i].size(); j++ ){
+      pattern->pattern[i][j] = Tpatterns[pattern->select][i][j];
     }
   }
 }
 
 void tetrisPattern::printNextPattern( void ){
-  for( int i = 0 ; i < (int)nowPattern.pattern.size(); i++ ){
-    for( int j = 0; j < (int)nowPattern.pattern[0].size(); j++ ){
-      if( nowPattern.pattern[i][j] == '#' ){
+  for( int i = 0 ; i < (int)Tpatterns[nowPattern.select].size(); i++ ){
+    for( int j = 0; j < (int)Tpatterns[nowPattern.select][0].size(); j++ ){
+      if( Tpatterns[nowPattern.select][i][j] == '#' ){
         fprintf( stderr, "\033[%d;%dH", 6-(int)nowPattern.pattern.size()+i, 6-(int)nowPattern.pattern[0].size()+j+MAP_WIDTH+4 );
         fprintf( stderr, " " );
       }
