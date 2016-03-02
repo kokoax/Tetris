@@ -19,8 +19,8 @@
 #include <mutex>
 #include <chrono>
 
-#define MAP_HIGH 25
-#define MAP_WIDTH 20
+#define MAP_HIGH 20
+#define MAP_WIDTH 15
 
 #define DOWN  2
 #define RIGHT 3

@@ -51,7 +51,7 @@ void tetrisRun::TimeAction( tetrisPattern &Pattern, tetrisMap &Map ){
   // 並列処理2 TimeAction( &Pattern, &Map )
   while( 1 ) {
     //1000000 us = 1 s
-    this_thread::sleep_for( chrono::microseconds( (int)( 1000000 / ( ( Map.score+20 ) / 20 ) ) ) );
+    this_thread::sleep_for( chrono::microseconds( (int)( 1000000 / ( ( Map.score+100 ) / 100 ) ) ) );
 
     cpp_mutex.lock();
 
