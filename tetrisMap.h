@@ -16,6 +16,7 @@ class tetrisMap {
     void attachProcess( PATTERN_RETENTION *nowPattern );
     void DeleteColumnAligned( void );
     void DeleteColumn( int number );
+    void checkGameover( void );
     void printScore( void );
 
   public:
