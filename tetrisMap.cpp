@@ -99,7 +99,19 @@ void tetrisMap::printOther( void ){
   fprintf( stderr, "NEXT BLOCK" );
 }
 
+void tetrisMap::checkGameover( void ){
+  for( int i = 0; i < MAP_WIDTH; i++ ){
+    if( map[5][i] == '#' ){
+      fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
+      fprintf( stderr, "\e[2;1HPlease push any key" );
+      mygetch();
+      exit( true );
+    }
+  }
+}
+
 void tetrisMap::attachProcess( PATTERN_RETENTION *nowPattern ){
+  checkGameover();
   putPatternMap( *nowPattern );
   DeleteColumnAligned();
   printMap();
