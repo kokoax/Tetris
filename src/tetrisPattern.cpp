@@ -1,6 +1,6 @@
 //tetrisPattarn.cpp
 //2016-02-25
-#include "tetrisPattern.h"
+#include "../header/tetrisPattern.h"
 
 /* ブロックのパターンを決め打ちですべて入れる
  * Pattern:  四角 2 x 2
