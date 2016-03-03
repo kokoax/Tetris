@@ -127,7 +127,7 @@ int tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
   hidePattern( *nowPattern );
   nowPattern->y++;
   int tmp = checkPenetrate( *nowPattern );
-  if( tmp != true ){
+  if( tmp == DOWN ){
     nowPattern->y--;
     attachProcess( &(*nowPattern) );
     return false;
@@ -188,16 +188,16 @@ int tetrisMap::checkPenetrate( PATTERN_RETENTION nowPattern ){
     return LEFT;
   } else if( nowPattern.x > ( MAP_WIDTH+2 - (int)nowPattern.pattern[0].size() -1 ) ){
     return RIGHT;
-  } else if ( nowPattern.y < 1 ){
-    //return UP;
   } else if( nowPattern.y > ( MAP_HIGH+2  - (int)nowPattern.pattern.size()    -1 ) ){
     return DOWN;
   } else {
     for( int i = 0; i < (int)nowPattern.pattern.size(); i++ ){
       for( int j = 0; j < (int)nowPattern.pattern[0].size(); j++ ){
-        if( ( nowPattern.pattern[i][j] == '#' ) &&
-            ( map[i + nowPattern.y -1][j + nowPattern.x -1] != ' ' ) ){
-          return DOWN;
+        if( i + nowPattern.y -1 >= 0 && j + nowPattern.x -1 >= 0 ){
+          if( ( nowPattern.pattern[i][j] != ' ' ) &&
+              ( map[i + nowPattern.y -1][j + nowPattern.x -1] != ' ' ) ){
+            return DOWN;
+          }
         }
       }
     }
