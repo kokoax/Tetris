@@ -1,6 +1,6 @@
 //tetrisRun.cpp
 //2016-02-25
-#include "tetrisRun.h"
+#include "../header/tetrisRun.h"
 
 mutex cpp_mutex;
 

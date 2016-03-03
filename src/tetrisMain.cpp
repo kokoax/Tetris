@@ -1,7 +1,7 @@
 //tetrisMain.cpp
 //2015-10-14
-#include "tetris.h"
-#include "tetrisRun.h"
+#include "../header/tetris.h"
+#include "../header/tetrisRun.h"
 
 int main( void ){
   srand( (unsigned int)time(NULL) );
