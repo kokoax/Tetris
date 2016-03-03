@@ -4,8 +4,8 @@
 
 # Setting
 - ブロックの追加
--- tetrisPattern.cpp のinitPatternメソッドに使用するサイズにリサイズしてvstrcpyで代入してください.
+-- src/tetrisPattern.cpp のinitPatternメソッドに使用するサイズにリサイズしてvstrcpyで代入してください.
 
 - マップのリサイズ
--- tetris.h の MAP_WIDTHで横幅, MAP_HIGHで縦幅を指定してください.
+-- header/tetris.h の MAP_WIDTHで横幅, MAP_HIGHで縦幅を指定してください.
 
