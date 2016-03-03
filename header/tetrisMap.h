@@ -2,6 +2,7 @@
 
 #include "tetris.h"
 #include "tetrisPattern.h"
+#include "archive.h"
 
 class tetrisMap {
   private:
