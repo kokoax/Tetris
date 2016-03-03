@@ -40,7 +40,6 @@ void tetrisMap::putPatternMap( PATTERN_RETENTION nowPattern ){
   for( int i = nowPattern.y; i < nowPattern.y+(int)nowPattern.pattern.size(); i++ ){
     for( int j = nowPattern.x; j < nowPattern.x+(int)nowPattern.pattern[0].size(); j++ ){
       if( nowPattern.pattern[i-nowPattern.y][j-nowPattern.x] == '#' ){
-        //map[i-1][j-1] = '#';
         map[i-1][j-1] = nowPattern.select;
       }
     }
@@ -106,20 +105,18 @@ void tetrisMap::printOther( void ){
   fprintf( stderr, "NEXT BLOCK" );
 }
 
-void tetrisMap::checkGameover( void ){
-  for( int i = 0; i < MAP_WIDTH; i++ ){
-    if( map[0][i] != ' ' ){
-      fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
-      fprintf( stderr, "\e[2;1HPlease push any key" );
-      mygetch();
-      exit( true );
-    }
+void tetrisMap::checkGameover( int y ){
+  if( y <= 0 ){
+    fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
+    fprintf( stderr, "\e[2;1HPlease push any key" );
+    mygetch();
+    exit( true );
   }
 }
 
 void tetrisMap::attachProcess( PATTERN_RETENTION *nowPattern ){
+  checkGameover( nowPattern->y );
   putPatternMap( *nowPattern );
-  checkGameover();
   DeleteColumnAligned();
   printMap();
   printScore();
@@ -130,7 +127,7 @@ int tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
   hidePattern( *nowPattern );
   nowPattern->y++;
   int tmp = checkPenetrate( *nowPattern );
-  if( tmp != true && tmp != UP ){
+  if( tmp != true ){
     nowPattern->y--;
     attachProcess( &(*nowPattern) );
     return false;
@@ -144,7 +141,7 @@ void tetrisMap::movePatternRight( PATTERN_RETENTION *nowPattern ){
   hidePattern( *nowPattern );
   nowPattern->x++;
   int tmp = checkPenetrate( *nowPattern );
-  if( tmp != true && tmp != UP ){
+  if( tmp != true ){
     nowPattern->x--;
   }
   appearPattern( *nowPattern );
@@ -192,7 +189,7 @@ int tetrisMap::checkPenetrate( PATTERN_RETENTION nowPattern ){
   } else if( nowPattern.x > ( MAP_WIDTH+2 - (int)nowPattern.pattern[0].size() -1 ) ){
     return RIGHT;
   } else if ( nowPattern.y < 1 ){
-    return UP;
+    //return UP;
   } else if( nowPattern.y > ( MAP_HIGH+2  - (int)nowPattern.pattern.size()    -1 ) ){
     return DOWN;
   } else {
