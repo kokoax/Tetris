@@ -4,20 +4,20 @@ FLAG = -c -O2 -W -std=c++11
 default : $(OBJ)
 	g++ $(OBJ) -o Tetris -lm -lpthread
 
-tetrisMain.o : tetrisMain.cpp tetris.h
-	g++ $(FLAG) tetrisMain.cpp -lpthread
+tetrisMain.o : src/tetrisMain.cpp header/tetris.h
+	g++ $(FLAG) src/tetrisMain.cpp -lpthread
 
-tetrisMap.o : tetrisMap.cpp tetrisMap.h tetris.h
-	g++ $(FLAG) tetrisMap.cpp -lpthread
+tetrisMap.o : src/tetrisMap.cpp header/tetrisMap.h header/tetris.h
+	g++ $(FLAG) src/tetrisMap.cpp -lpthread
 
-tetrisPattern.o : tetrisPattern.cpp tetrisPattern.h tetris.h
-	g++ $(FLAG) tetrisPattern.cpp -lpthread
+tetrisPattern.o : src/tetrisPattern.cpp header/tetrisPattern.h header/tetris.h
+	g++ $(FLAG) src/tetrisPattern.cpp -lpthread
 
-tetrisRun.o : tetrisRun.cpp tetrisRun.h tetris.h
-	g++ $(FLAG) tetrisRun.cpp -lpthread
+tetrisRun.o : src/tetrisRun.cpp header/tetrisRun.h header/tetris.h
+	g++ $(FLAG) src/tetrisRun.cpp -lpthread
 
-archive.o : archive.cpp archive.h tetris.h
-	g++ $(FLAG) archive.cpp -lpthread
+archive.o : src/archive.cpp header/archive.h header/tetris.h
+	g++ $(FLAG) src/archive.cpp -lpthread
 
 
 run : $(OBJ)
