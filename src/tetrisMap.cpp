@@ -1,6 +1,6 @@
 //tetrisMap.cpp
 //2016-02-25
-#include "tetrisMap.h"
+#include "../header/tetrisMap.h"
 
 void tetrisMap::initMap( void ){
   for( int i = 0; i < MAP_HIGH; i++ ){
