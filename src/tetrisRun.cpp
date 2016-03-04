@@ -38,7 +38,10 @@ void tetrisRun::KeyAction( tetrisPattern &Pattern, tetrisMap &Map ){
       Map.movePatternRight( &Pattern.nowPattern );
     } else if( data == 'e' || data == 'q' ){
       //fprintf( stderr, "\e[2J" );
+      fprintf( stderr, "\e[49m" );
       system( "clear" );
+      fprintf( stderr, "End of Game\n" );
+      fprintf( stderr, "Last score is %d\n", Map.score );
       exit( true );
     }
 

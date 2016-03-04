@@ -107,9 +107,10 @@ void tetrisMap::printOther( void ){
 
 void tetrisMap::checkGameover( int y ){
   if( y <= 0 ){
-    fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
-    fprintf( stderr, "\e[2;1HPlease push any key" );
-    mygetch();
+    fprintf( stderr, "\e[49m" );
+    system( "clear" );
+    fprintf( stderr, "GAME OVER\n" );
+    fprintf( stderr, "Last score is %d\n", score );
     exit( true );
   }
 }
