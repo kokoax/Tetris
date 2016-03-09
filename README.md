@@ -10,6 +10,7 @@
 -- header/tetris.h の MAP_WIDTHで横幅, MAP_HIGHで縦幅を指定してください.
 
 # Demo
-![テトリスのgifアニメーション](https://github.com/kokoax/Tetris/images/Tetris.gif "Tetris.gif")
+![テトリスのgifアニメーション](https://github.com/kokoax/Tetris/blob/master/images/Tetris.gif "Tetris.gif")
+
 
 
