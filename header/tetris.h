@@ -26,6 +26,7 @@
 #define RIGHT 3
 #define LEFT  4
 #define UP    5
+#define ANY_DIR 6
 
 using namespace std;
 

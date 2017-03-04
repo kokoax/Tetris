@@ -21,8 +21,6 @@ void tetrisMap::printMap( void ){
         fprintf( stderr, "\033[%d;%dH\e[49m", i+1, j+1 );
       }
       fprintf( stderr, " " );
-      //fprintf( stderr, "\e[33;1H%d", map[i-1][j-1]+41 );
-      //fprintf( stderr, "%c", map[i-1][j-1] );
     }
   }
 }
@@ -128,7 +126,7 @@ int tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
   hidePattern( *nowPattern );
   nowPattern->y++;
   int tmp = checkPenetrate( *nowPattern );
-  if( tmp == DOWN ){
+  if( tmp == DOWN || tmp == ANY_DIR ){
     nowPattern->y--;
     attachProcess( &(*nowPattern) );
     return false;
@@ -197,7 +195,7 @@ int tetrisMap::checkPenetrate( PATTERN_RETENTION nowPattern ){
         if( i + nowPattern.y -1 >= 0 && j + nowPattern.x -1 >= 0 ){
           if( ( nowPattern.pattern[i][j] != ' ' ) &&
               ( map[i + nowPattern.y -1][j + nowPattern.x -1] != ' ' ) ){
-            return DOWN;
+            return ANY_DIR;
           }
         }
       }
