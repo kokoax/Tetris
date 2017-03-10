@@ -11,29 +11,37 @@ void tetrisRun::KeyAction( tetrisPattern &Pattern, tetrisMap &Map ){
   // 並列処理1 KeyAction( &Pattern, &Map )
   while( 1 ){
     int data = mygetch();   //キー入力を待機
+    // cursor key when
+    // '\033'
+    // '['
+    // 'A' or 'B' or 'C' or 'D'
+    if( data == '\033'){
+      mygetch(); // '['
+      data = mygetch();
+    }
 
     //並列処理内で共有変数を変更するのでロックする
     cpp_mutex.lock();
 
     // 入力されたキーごとに処理をする
-    if( data == 0x48 || data == 'w'){
+    if( data == 'A' || data == 'w'){
       //上キー
       //パターンの回転を行う
       // ex.
       // Pattern.turn();
       // Map.appearPattern( Pattern.nowPattern );
       Map.turnPatternRight( &Pattern.nowPattern );
-    } else if( data == 0x50 || data == 's' ){
+    } else if( data == 'B' || data == 's' ){
       //下キー
       if( Map.movePatternDown( &Pattern.nowPattern ) == false ){
         Pattern.setPattern();
         Map.appearPattern( Pattern.nowPattern );
         Pattern.printNextPattern();
       }
-    } else if( data == 0x4B || data == 'a' ){
+    } else if( data == 'D' || data == 'a' ){
       //左キー
       Map.movePatternLeft( &Pattern.nowPattern );
-    } else if( data == 0x4D || data == 'd' ){
+    } else if( data == 'C' || data == 'd' ){
       //右キー
       Map.movePatternRight( &Pattern.nowPattern );
     } else if( data == 'e' || data == 'q' ){
