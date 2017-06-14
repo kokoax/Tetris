@@ -9,3 +9,14 @@
 - マップのリサイズ
 -- header/tetris.h の MAP_WIDTHで横幅, MAP_HIGHで縦幅を指定してください.
 
+<<<<<<< Updated upstream
+=======
+# Usage
+``$ cd /path/to/Tetris.git``
+``$ make``
+``$ ./Tetris``
+
+# Demo
+![テトリスのgifアニメーション](https://github.com/kokoax/Tetris/blob/master/images/Tetris.gif "Tetris.gif")
+
+>>>>>>> Stashed changes
