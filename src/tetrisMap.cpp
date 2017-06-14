@@ -1,6 +1,6 @@
 //tetrisMap.cpp
 //2016-02-25
-#include "tetrisMap.h"
+#include "../header/tetrisMap.h"
 
 void tetrisMap::initMap( void ){
   for( int i = 0; i < MAP_HIGH; i++ ){
@@ -21,8 +21,6 @@ void tetrisMap::printMap( void ){
         fprintf( stderr, "\033[%d;%dH\e[49m", i+1, j+1 );
       }
       fprintf( stderr, " " );
-      //fprintf( stderr, "\e[33;1H%d", map[i-1][j-1]+41 );
-      //fprintf( stderr, "%c", map[i-1][j-1] );
     }
   }
 }
@@ -40,7 +38,6 @@ void tetrisMap::putPatternMap( PATTERN_RETENTION nowPattern ){
   for( int i = nowPattern.y; i < nowPattern.y+(int)nowPattern.pattern.size(); i++ ){
     for( int j = nowPattern.x; j < nowPattern.x+(int)nowPattern.pattern[0].size(); j++ ){
       if( nowPattern.pattern[i-nowPattern.y][j-nowPattern.x] == '#' ){
-        //map[i-1][j-1] = '#';
         map[i-1][j-1] = nowPattern.select;
       }
     }
@@ -53,8 +50,8 @@ void tetrisMap::DeleteColumn( int number ){
       map[i][j] = map[i-1][j];
     }
   }
-  for( int i = 0; i < MAP_WIDTH; i++ ){
-    map[0][i] = ' ';
+  for( int j = 0; j < MAP_WIDTH; j++ ){
+    map[0][j] = ' ';
   }
 }
 
@@ -106,20 +103,19 @@ void tetrisMap::printOther( void ){
   fprintf( stderr, "NEXT BLOCK" );
 }
 
-void tetrisMap::checkGameover( void ){
-  for( int i = 0; i < MAP_WIDTH; i++ ){
-    if( map[0][i] != ' ' ){
-      fprintf( stderr, "\e[2J\e[1;1HGAME OVER" );
-      fprintf( stderr, "\e[2;1HPlease push any key" );
-      mygetch();
-      exit( true );
-    }
+void tetrisMap::checkGameover( int y ){
+  if( y <= 0 ){
+    fprintf( stderr, "\e[49m" );
+    system( "clear" );
+    fprintf( stderr, "GAME OVER\n" );
+    fprintf( stderr, "Last score is %d\n", score );
+    exit( true );
   }
 }
 
 void tetrisMap::attachProcess( PATTERN_RETENTION *nowPattern ){
+  checkGameover( nowPattern->y );
   putPatternMap( *nowPattern );
-  checkGameover();
   DeleteColumnAligned();
   printMap();
   printScore();
@@ -130,7 +126,7 @@ int tetrisMap::movePatternDown( PATTERN_RETENTION *nowPattern ){
   hidePattern( *nowPattern );
   nowPattern->y++;
   int tmp = checkPenetrate( *nowPattern );
-  if( tmp != true && tmp != UP ){
+  if( tmp == DOWN || tmp == ANY_DIR ){
     nowPattern->y--;
     attachProcess( &(*nowPattern) );
     return false;
@@ -144,7 +140,7 @@ void tetrisMap::movePatternRight( PATTERN_RETENTION *nowPattern ){
   hidePattern( *nowPattern );
   nowPattern->x++;
   int tmp = checkPenetrate( *nowPattern );
-  if( tmp != true && tmp != UP ){
+  if( tmp != -1 ){
     nowPattern->x--;
   }
   appearPattern( *nowPattern );
@@ -155,7 +151,7 @@ void tetrisMap::movePatternLeft( PATTERN_RETENTION *nowPattern ){
   hidePattern( *nowPattern );
   nowPattern->x--;
   int tmp = checkPenetrate( *nowPattern );
-  if( tmp != true && tmp != UP ){
+  if( tmp != -1 && tmp != UP ){
     nowPattern->x++;
   }
   appearPattern( *nowPattern );
@@ -191,21 +187,21 @@ int tetrisMap::checkPenetrate( PATTERN_RETENTION nowPattern ){
     return LEFT;
   } else if( nowPattern.x > ( MAP_WIDTH+2 - (int)nowPattern.pattern[0].size() -1 ) ){
     return RIGHT;
-  } else if ( nowPattern.y < 1 ){
-    return UP;
   } else if( nowPattern.y > ( MAP_HIGH+2  - (int)nowPattern.pattern.size()    -1 ) ){
     return DOWN;
   } else {
     for( int i = 0; i < (int)nowPattern.pattern.size(); i++ ){
       for( int j = 0; j < (int)nowPattern.pattern[0].size(); j++ ){
-        if( ( nowPattern.pattern[i][j] == '#' ) &&
-            ( map[i + nowPattern.y -1][j + nowPattern.x -1] != ' ' ) ){
-          return DOWN;
+        if( i + nowPattern.y -1 >= 0 && j + nowPattern.x -1 >= 0 ){
+          if( ( nowPattern.pattern[i][j] == '#' ) &&
+              ( map[i + nowPattern.y -1][j + nowPattern.x -1] != ' ' ) ){
+            return ANY_DIR;
+          }
         }
       }
     }
   }
-  return true;
+  return -1;
 }
 
 void tetrisMap::turnPatternRight( PATTERN_RETENTION *nowPattern ){
@@ -227,7 +223,7 @@ void tetrisMap::turnPatternRight( PATTERN_RETENTION *nowPattern ){
   }
 
   int tmp = checkPenetrate( work );
-  if( tmp == true || tmp == UP ){
+  if( tmp == -1 || tmp == UP ){
     nowPattern->pattern = work.pattern;
   }
 

@@ -2,6 +2,7 @@
 
 #include "tetris.h"
 #include "tetrisPattern.h"
+#include "archive.h"
 
 class tetrisMap {
   private:
@@ -15,7 +16,7 @@ class tetrisMap {
     void attachProcess( PATTERN_RETENTION *nowPattern );
     void DeleteColumnAligned( void );
     void DeleteColumn( int number );
-    void checkGameover( void );
+    void checkGameover( int y );
     void printScore( void );
     void printOther( void );
 
