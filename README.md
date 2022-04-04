@@ -16,3 +16,6 @@
 
 # Demo
 ![テトリスのgifアニメーション](https://github.com/kokoax/Tetris/blob/master/images/Tetris.gif "Tetris.gif")
+
+aabce
+abcd
